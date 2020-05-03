@@ -6,3 +6,12 @@ services:
       dockerfile: Dockerfile
     ports:
       - "8090:80"
+  db:
+    image: store/oracle/database-enterprise:12.2.0.1-slim
+    volumes:
+      - db-data:/ORCL
+    ports:
+      - "1521:1521"
+
+volumes:
+  db-data:
