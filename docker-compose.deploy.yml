@@ -6,12 +6,42 @@ services:
       dockerfile: Dockerfile
     ports:
       - "8090:80"
+    networks:
+      default:
+        aliases:
+          - frontend
   db:
     image: store/oracle/database-enterprise:12.2.0.1-slim
     volumes:
       - db-data:/ORCL
     ports:
       - "1521:1521"
+    networks:
+      default:
+        aliases:
+          - db
+  flyway-init:
+    image: flyway/flyway:6.4.1
+    command: -url=jdbc:oracle:thin:@//db/ORCLPDB1.localdomain -user=system -password=Oradoc_db1 -connectRetries=120 baseline migrate
+    volumes:
+      - ./db/flyway/init_sql:/flyway/sql
+    depends_on:
+      - db
+    networks:
+      - default
+  flyway:
+    image: flyway/flyway:6.4.1
+    command: -url=jdbc:oracle:thin:@//db/ORCLPDB1.localdomain -user=atjob -password=atjob -connectRetries=120 migrate
+    volumes:
+      - ./db/flyway/sql:/flyway/sql
+    depends_on:
+      - db
+    networks:
+      - default
 
 volumes:
   db-data:
+
+networks:
+  default:
+    external: false
