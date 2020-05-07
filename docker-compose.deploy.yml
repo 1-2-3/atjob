@@ -10,6 +10,21 @@ services:
       default:
         aliases:
           - frontend
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    ports:
+      - "9003:9003"
+    command: bash -c "mvn clean install && mvn spring-boot:run"
+    # command: bash -c "while true; do sleep 1; done"
+    volumes:
+      - ./backend:/app
+      - maven-repo:/root/.m2
+    networks:
+      default:
+        aliases:
+          - backend
   db:
     image: store/oracle/database-enterprise:12.2.0.1-slim
     volumes:
@@ -41,6 +56,7 @@ services:
 
 volumes:
   db-data:
+  maven-repo:
 
 networks:
   default:
