@@ -1,10 +1,7 @@
 spring:
   datasource:
-    # 服务地址
     url: jdbc:oracle:thin:@db/ORCLPDB1.localdomain
-    # 访问用户名
     username: atjob
-    # 访问用户密码
     password: atjob
     driver-class-name: oracle.jdbc.OracleDriver
 

@@ -26,18 +26,21 @@ services:
         aliases:
           - backend
   db:
-    image: store/oracle/database-enterprise:12.2.0.1-slim
+    # image: store/oracle/database-enterprise:12.2.0.1-slim
+    build:
+      context: ./db
+      dockerfile: Dockerfile
     volumes:
       - db-data:/ORCL
     ports:
-      - "1521:1521"
+      - "1522:1521"
     networks:
       default:
         aliases:
           - db
   flyway-init:
     image: flyway/flyway:6.4.1
-    command: -url=jdbc:oracle:thin:@//db/ORCLPDB1.localdomain -user=system -password=Oradoc_db1 -connectRetries=120 baseline migrate
+    command: -url=jdbc:oracle:thin:@//db/ORCLPDB1.localdomain -user="sys as sysdba" -password=Oradoc_db1 -connectRetries=120 repair baseline migrate
     volumes:
       - ./db/flyway/init_sql:/flyway/sql
     depends_on:
@@ -46,7 +49,7 @@ services:
       - default
   flyway:
     image: flyway/flyway:6.4.1
-    command: -url=jdbc:oracle:thin:@//db/ORCLPDB1.localdomain -user=atjob -password=atjob -connectRetries=120 migrate
+    command: -url=jdbc:oracle:thin:@//db/ORCLPDB1.localdomain -user=atjob -password=atjob -connectRetries=120 repair migrate
     volumes:
       - ./db/flyway/sql:/flyway/sql
     depends_on:
