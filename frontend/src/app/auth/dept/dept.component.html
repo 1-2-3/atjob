@@ -1,0 +1,14 @@
+<div nz-row [nzGutter]="16">
+  <div nz-col>
+    <nz-card nsAutoHeightCard [nzLoading]="deptLoading" nzTitle="科室信息" [nzExtra]="deptExtra" class="dept-card">
+      <ng-template #deptExtra>
+        <a (click)="showAddDeptWin()">新增</a>
+        <nz-divider nzType="vertical"></nz-divider>
+        <a (click)="showModifyDeptWin()">修改</a>
+        <nz-divider nzType="vertical"></nz-divider>
+        <a nz-popconfirm nzPopconfirmTitle="确定要删除吗？" (nzOnConfirm)="deleteDept()">删除</a>
+      </ng-template>
+      <nz-tree [(nzData)]="deptTreeDs"></nz-tree>
+    </nz-card>
+  </div>
+</div>

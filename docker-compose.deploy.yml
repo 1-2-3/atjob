@@ -25,6 +25,10 @@ services:
       default:
         aliases:
           - backend
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "1k"
   db:
     # image: store/oracle/database-enterprise:12.2.0.1-slim
     build:
@@ -33,7 +37,7 @@ services:
     volumes:
       - db-data:/ORCL
     ports:
-      - "1522:1521"
+      - "9009:1521"
     networks:
       default:
         aliases:

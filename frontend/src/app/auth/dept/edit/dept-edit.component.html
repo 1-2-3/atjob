@@ -1,0 +1,63 @@
+<!-- <form nz-form [formGroup]="formGroup" (ngSubmit)="submit()" nzType="horizontal">
+  <nz-spin [nzSpinning]="loading">
+    <div nz-row>
+      <div nz-col nzSpan="12">
+        <nz-form-item>
+          <nc-label ncText="*名称" nzSpan="8"></nc-label>
+          <nz-form-control ncAutoErrorTip nzHasFeedback nzSpan="16">
+            <input nz-input formControlName="name" />
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+      <div nz-col nzSpan="12">
+        <nz-form-item>
+          <nc-label ncText="*编码" ncTooltip="作为系统内部标识，不允许重复" nzSpan="8"></nc-label>
+          <nz-form-control ncAutoErrorTip nzHasFeedback nzSpan="16">
+            <input nz-input formControlName="code" />
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+    </div>
+    <div nz-row>
+      <div nz-col nzSpan="12">
+        <nz-form-item>
+          <nc-label ncText="英文名称" nzSpan="8"></nc-label>
+          <nz-form-control ncAutoErrorTip nzHasFeedback nzSpan="16">
+            <input nz-input formControlName="nameEn" />
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+      <div nz-col nzSpan="12">
+        <nz-form-item>
+          <nc-label ncText="父节点" nzSpan="8"></nc-label>
+          <nz-form-control ncAutoErrorTip nzSpan="16">
+            <nz-cascader
+              formControlName="parent"
+              nzPlaceHolder="请选择"
+              nzChangeOnSelect="true"
+              nzExpandTrigger="hover"
+              [nzOptions]="parentOptions"
+              [nzAllowClear]="true"
+            ></nz-cascader>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+    </div>
+    <div nz-row>
+      <div nz-col nzSpan="12">
+        <nz-form-item>
+          <nc-label ncText="是否叶子" nzSpan="8"></nc-label>
+          <nz-form-control ncAutoErrorTip nzSpan="16">
+            <nz-form-control ncAutoErrorTip>
+              <label nz-checkbox formControlName="isLeaf"></label>
+            </nz-form-control>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+    </div>
+  </nz-spin>
+  <div class="modal-footer">
+    <button nz-button type="button" (click)="cancel()">关闭</button>
+    <button nz-button [nzLoading]="submitting" [nzType]="'primary'">保存</button>
+  </div>
+</form> -->

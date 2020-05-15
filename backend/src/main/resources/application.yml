@@ -10,3 +10,7 @@ server:
   tomcat:
     max-threads: 800
     uri-encoding: UTF-8
+
+# mybatis分页插件
+pagehelper:
+  dialect: com.github.pagehelper.dialect.helper.OracleDialect
