@@ -102,6 +102,15 @@ public class ApiResult<T> {
         return result;
     }
 
+    public static ApiResult<Object> validationFailMsg(String msg) {
+        ApiResult<Object> result = new ApiResult<Object>();
+        result.setSuccess(false);
+        result.setErrType(1);
+        result.setMsg(msg);
+
+        return result;
+    }
+
     public Boolean getSuccess() {
         return success;
     }

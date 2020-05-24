@@ -4,12 +4,16 @@ services:
     build:
       context: ./frontend
       dockerfile: Dockerfile
-    ports:
-      - "8090:80"
+    # ports:
+    #   - "8090:80"
     networks:
       default:
         aliases:
           - frontend
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "2k"
   backend:
     build:
       context: ./backend
@@ -28,7 +32,7 @@ services:
     logging:
       driver: "json-file"
       options:
-        max-size: "1k"
+        max-size: "2k"
   db:
     # image: store/oracle/database-enterprise:12.2.0.1-slim
     build:
@@ -42,6 +46,10 @@ services:
       default:
         aliases:
           - db
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "2k"
   flyway-init:
     image: flyway/flyway:6.4.1
     command: -url=jdbc:oracle:thin:@//db/ORCLPDB1.localdomain -user="sys as sysdba" -password=Oradoc_db1 -connectRetries=120 repair baseline migrate

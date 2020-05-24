@@ -21,17 +21,8 @@ public class Dept {
     @ApiModelProperty(value = "部门编码", required = false)
     private String code;
 
-    @ApiModelProperty(value = "树父节点集合", required = false)
-    private String treeIds;
-
     @ApiModelProperty(value = "父节ID", required = false)
     private String parent;
-
-    @ApiModelProperty(value = "是否叶", required = false)
-    private Boolean isLeaf;
-
-    @ApiModelProperty(value = "节点深度", required = false)
-    private Integer nodeLevel;
 
     @ApiModelProperty(value = "录入码", required = false)
     private String inputCode;
@@ -60,10 +51,6 @@ public class Dept {
     @ApiModelProperty(value = "修改时间", required = false)
     private Date modifyTime;
 
-    public String getTreeNodeId() {
-        return this.getDeptId();
-    }
-
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
@@ -73,10 +60,7 @@ public class Dept {
         sb.append(", deptId=").append(deptId);
         sb.append(", name=").append(name);
         sb.append(", code=").append(code);
-        sb.append(", treeIds=").append(treeIds);
         sb.append(", parent=").append(parent);
-        sb.append(", isLeaf=").append(isLeaf);
-        sb.append(", nodeLevel=").append(nodeLevel);
         sb.append(", inputCode=").append(inputCode);
         sb.append(", indexField=").append(indexField);
         sb.append(", description=").append(description);

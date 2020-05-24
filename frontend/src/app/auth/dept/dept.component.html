@@ -8,7 +8,12 @@
         <nz-divider nzType="vertical"></nz-divider>
         <a nz-popconfirm nzPopconfirmTitle="确定要删除吗？" (nzOnConfirm)="deleteDept()">删除</a>
       </ng-template>
-      <nz-tree [(nzData)]="deptTreeDs"></nz-tree>
+      <nz-tree [(nzData)]="deptTreeData" #deptTree></nz-tree>
     </nz-card>
   </div>
+  <!-- <div nz-col>
+    <nz-card nsAutoHeightCard nzTitle="科室信息">
+      <st #st [data]="'api/v1/dept/getDeptList'" [columns]="columns"></st>
+    </nz-card>
+  </div> -->
 </div>

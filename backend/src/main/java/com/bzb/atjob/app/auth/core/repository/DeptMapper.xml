@@ -5,10 +5,7 @@
     <id column="T_DEPT_ID" jdbcType="VARCHAR" property="deptId" />
     <result column="T_NAME" jdbcType="VARCHAR" property="name" />
     <result column="T_CODE" jdbcType="VARCHAR" property="code" />
-    <result column="T_TREE_IDS" jdbcType="VARCHAR" property="treeIds" />
     <result column="T_PARENT" jdbcType="VARCHAR" property="parent" />
-    <result column="T_IS_LEAF" jdbcType="DECIMAL" property="isLeaf" />
-    <result column="T_NODE_LEVEL" jdbcType="DECIMAL" property="nodeLevel" />
     <result column="T_INPUT_CODE" jdbcType="VARCHAR" property="inputCode" />
     <result column="T_INDEX_FIELD" jdbcType="DECIMAL" property="indexField" />
     <result column="T_DESCRIPTION" jdbcType="VARCHAR" property="description" />
@@ -50,8 +47,8 @@
   </sql>
   <sql id="Base_Column_List">
     T.DEPT_ID as T_DEPT_ID,
-    T.NAME as T_NAME, T.CODE as T_CODE, T.TREE_IDS as T_TREE_IDS, T.PARENT as T_PARENT,
-    T.IS_LEAF as T_IS_LEAF, T.NODE_LEVEL as T_NODE_LEVEL, T.INPUT_CODE as T_INPUT_CODE,
+    T.NAME as T_NAME, T.CODE as T_CODE, T.PARENT as T_PARENT,
+    T.INPUT_CODE as T_INPUT_CODE,
     T.INDEX_FIELD as T_INDEX_FIELD, T.DESCRIPTION as T_DESCRIPTION, T.IS_STOP as T_IS_STOP,
     T.CREATE_TIME as T_CREATE_TIME, T.NAME_EN as T_NAME_EN, T.CREATE_USER_ID as T_CREATE_USER_ID,
     T.MODIFY_USER_ID as T_MODIFY_USER_ID, T.MODIFY_TIME as T_MODIFY_TIME
@@ -83,15 +80,15 @@
   </delete>
   <insert id="insert" parameterType="com.bzb.atjob.app.auth.core.entity.Dept">
     insert into AUTH_DEPT (DEPT_ID,
-      NAME, CODE, TREE_IDS,
-      PARENT, IS_LEAF, NODE_LEVEL,
+      NAME, CODE,
+      PARENT,
       INPUT_CODE, INDEX_FIELD, DESCRIPTION,
       IS_STOP, CREATE_TIME, NAME_EN,
       CREATE_USER_ID, MODIFY_USER_ID, MODIFY_TIME
       )
     values (#{deptId,jdbcType=VARCHAR},
-      #{name,jdbcType=VARCHAR}, #{code,jdbcType=VARCHAR}, #{treeIds,jdbcType=VARCHAR},
-      #{parent,jdbcType=VARCHAR}, #{isLeaf,jdbcType=DECIMAL}, #{nodeLevel,jdbcType=DECIMAL},
+      #{name,jdbcType=VARCHAR}, #{code,jdbcType=VARCHAR},
+      #{parent,jdbcType=VARCHAR},
       #{inputCode,jdbcType=VARCHAR}, #{indexField,jdbcType=DECIMAL}, #{description,jdbcType=VARCHAR},
       #{isStop,jdbcType=DECIMAL}, #{createTime,jdbcType=TIMESTAMP}, #{nameEn,jdbcType=VARCHAR},
       #{createUserId,jdbcType=VARCHAR}, #{modifyUserId,jdbcType=VARCHAR}, #{modifyTime,jdbcType=TIMESTAMP}
@@ -109,17 +106,8 @@
       <if test="code != null">
         CODE,
       </if>
-      <if test="treeIds != null">
-        TREE_IDS,
-      </if>
       <if test="parent != null">
         PARENT,
-      </if>
-      <if test="isLeaf != null">
-        IS_LEAF,
-      </if>
-      <if test="nodeLevel != null">
-        NODE_LEVEL,
       </if>
       <if test="inputCode != null">
         INPUT_CODE,
@@ -159,17 +147,8 @@
       <if test="code != null">
         #{code,jdbcType=VARCHAR},
       </if>
-      <if test="treeIds != null">
-        #{treeIds,jdbcType=VARCHAR},
-      </if>
       <if test="parent != null">
         #{parent,jdbcType=VARCHAR},
-      </if>
-      <if test="isLeaf != null">
-        #{isLeaf,jdbcType=DECIMAL},
-      </if>
-      <if test="nodeLevel != null">
-        #{nodeLevel,jdbcType=DECIMAL},
       </if>
       <if test="inputCode != null">
         #{inputCode,jdbcType=VARCHAR},
@@ -215,17 +194,8 @@
       <if test="code != null">
         CODE = #{code,jdbcType=VARCHAR},
       </if>
-      <if test="treeIds != null">
-        TREE_IDS = #{treeIds,jdbcType=VARCHAR},
-      </if>
       <if test="parent != null">
         PARENT = #{parent,jdbcType=VARCHAR},
-      </if>
-      <if test="isLeaf != null">
-        IS_LEAF = #{isLeaf,jdbcType=DECIMAL},
-      </if>
-      <if test="nodeLevel != null">
-        NODE_LEVEL = #{nodeLevel,jdbcType=DECIMAL},
       </if>
       <if test="inputCode != null">
         INPUT_CODE = #{inputCode,jdbcType=VARCHAR},
@@ -262,10 +232,7 @@
     set 
       NAME = #{name,jdbcType=VARCHAR},
       CODE = #{code,jdbcType=VARCHAR},
-      TREE_IDS = #{treeIds,jdbcType=VARCHAR},
       PARENT = #{parent,jdbcType=VARCHAR},
-      IS_LEAF = #{isLeaf,jdbcType=DECIMAL},
-      NODE_LEVEL = #{nodeLevel,jdbcType=DECIMAL},
       INPUT_CODE = #{inputCode,jdbcType=VARCHAR},
       INDEX_FIELD = #{indexField,jdbcType=DECIMAL},
       DESCRIPTION = #{description,jdbcType=VARCHAR},

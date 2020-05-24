@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve -o --port 7200",
+    "start": "ng serve -o --port 7200 --proxy-config proxy.config.json",
     "build": "ng build --prod",
     "test": "ng test",
     "lint": "ng lint",
@@ -20,6 +20,7 @@
     "@angular/platform-browser-dynamic": "~9.1.3",
     "@angular/router": "~9.1.3",
     "@delon/abc": "^9.2.3",
+    "@delon/theme": "^9.2.4",
     "ng-zorro-antd": "^9.1.2",
     "rxjs": "~6.5.4",
     "tslib": "^1.10.0",

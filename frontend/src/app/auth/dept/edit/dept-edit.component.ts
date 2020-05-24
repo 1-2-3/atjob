@@ -4,6 +4,9 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { DeptService } from '../dept.service';
 import { map } from 'rxjs/operators';
 import { zip, of } from 'rxjs';
+import { TreeUtil } from 'src/app/shared/utils/tree-util';
+import { CascaderUtil } from 'src/app/shared/utils/cascader-util';
+import { ApiResult } from 'src/app/shared/types/api-result';
 
 @Component({
   selector: 'dept-edit',
@@ -22,7 +25,6 @@ export class DeptEditComponent implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder,
-    // private modalService: ModalService,
     private modal: NzModalRef,
     private msg: NzMessageService,
     private deptService: DeptService,
@@ -32,82 +34,105 @@ export class DeptEditComponent implements OnInit {
    * 加载form
    */
   ngOnInit(): void {
-    // this.formGroup = this.formBuilder.group({
-    //   deptId: ['', []], //科室Id
-    //   name: ['', [Validators.required]], //部门名称
-    //   code: [
-    //     '',
-    //     [Validators.required],
-    //     [util.validators.notExists(this.opts.editId, this.deptService.isDeptCodeExists)],
-    //   ], //部门编码
-    //   parent: [[]], //父节ID
-    //   isLeaf: [false, []], //是否叶
-    //   treeIds: [], //树父节点集合
-    //   hospitalId: [], //HOSPITAL_ID
-    //   nodeLevel: [], //节点深度
-    //   inputCode: [], //录入码
-    //   description: [], //描述
-    //   hospitalCode: [], //医院编码
-    //   nameEn: [], //英文名称
-    // });
-    // this.loadData();
+    this.formGroup = this.formBuilder.group({
+      deptId: ['', []], //科室Id
+      name: ['', [Validators.required]], //部门名称
+      code: ['', [Validators.required]], //部门编码
+      parent: [[]], //父节ID
+      parentCascadeValue: [[]], //父节ID 级联下拉框Value
+      inputCode: [], //录入码
+      description: [], //描述
+      indexField: [], // 排序
+      isStop: [], // 是否停用
+      nameEn: [], //英文名称
+    });
+
+    this.loadData();
   }
 
   /**
    * 加载表单数据和控件数据源
    */
   private loadData(): void {
-    // if (this.opts.operType === 'add') {
-    //   // 新增
-    //   this.loading = true;
-    //   zip(
-    //     // 加载级联下拉框数据源
-    //     this.deptService.getDeptCascaderTree().pipe(map(data => (this.parentOptions = data))),
-    //   ).subscribe(() => (this.loading = false));
-    // } else {
-    //   // 编辑
-    //   this.loading = true;
-    //   zip(
-    //     // 加载表单数据
-    //     this.deptService
-    //       .getDeptById(this.opts.editId)
-    //       .pipe(map(dto => this.formGroup.patchValue(dto))),
-    //     // 加载级联下拉框数据源
-    //     this.deptService.getDeptCascaderTree().pipe(map(data => (this.parentOptions = data))),
-    //   ).subscribe(() => {
-    //     // 设置级联下拉框初始值
-    //     this.formGroup
-    //       .get('parent')
-    //       .setValue(
-    //         util.cascader.getPathValuesByValue(
-    //           this.formGroup.get('parent').value,
-    //           this.parentOptions,
-    //         ),
-    //       );
-    //     this.loading = false;
-    //   });
-    // }
+    // 加载上级部门下拉框
+    const parentOptionsLoader = this.deptService.getDeptTree().pipe(
+      map((r: ApiResult) => {
+        if (r.success) {
+          this.parentOptions = r.data;
+        }
+      }),
+    );
+
+    if (this.opts.operType === 'add') {
+      parentOptionsLoader.subscribe();
+    } else if (this.opts.operType === 'edit') {
+      // 加载表单数据
+      const formDataLoader = this.deptService.getDeptById(this.opts.editId).pipe(
+        map((r: ApiResult) => {
+          if (r.success && r.data) {
+            this.formGroup.patchValue(r.data);
+          }
+        }),
+      );
+
+      zip(parentOptionsLoader, formDataLoader).subscribe(() => {
+        // 生成级联下拉框要求的Id数组
+        CascaderUtil.propValueToCascaderValue(
+          this.formGroup,
+          this.parentOptions,
+          'parent',
+          'parentCascadeValue',
+          'deptId',
+        );
+      });
+    } else {
+      const neverReachHere: never = this.opts.operType;
+    }
   }
 
   /**
    * 提交
    */
   submit() {
-    // this.submitting = true;
-    // util.form.submit({
-    //   formGroup: this.formGroup,
-    //   operType: this.opts.operType,
-    //   save: () => this.deptService.saveDept(this.formGroup.value),
-    //   update: () => this.deptService.updateDept(this.formGroup.value),
-    //   success: () => {
-    //     this.msg.success('保存成功');
-    //     this.modal.destroy({
-    //       type: 'ok',
-    //       data: null,
-    //     });
-    //   },
-    //   complete: () => (this.submitting = false),
-    // });
+    for (const i in this.formGroup.controls) {
+      this.formGroup.controls[i].markAsDirty();
+      this.formGroup.controls[i].updateValueAndValidity();
+    }
+
+    if (this.formGroup.valid) {
+      // 级联下拉框的值为数组，提交前取数组最后一个元素
+      CascaderUtil.cascaderValueToPropValue(this.formGroup, 'parent', 'parentCascadeValue');
+
+      if (this.opts.operType === 'add') {
+        this.submitting = true;
+        this.deptService.saveDept(this.formGroup.value).subscribe((r: ApiResult) => {
+          this.submitting = false;
+
+          // 提交完成关闭子窗口
+          if (r.success) {
+            this.modal.destroy({
+              type: 'ok',
+              data: null,
+            });
+          }
+        });
+      } else if (this.opts.operType === 'edit') {
+        this.submitting = true;
+        this.deptService.updateDept(this.formGroup.value).subscribe((r: ApiResult) => {
+          this.submitting = false;
+
+          // 提交完成关闭子窗口
+          if (r.success) {
+            this.modal.destroy({
+              type: 'ok',
+              data: null,
+            });
+          }
+        });
+      } else {
+        const neverReachHere: never = this.opts.operType;
+      }
+    }
   }
 
   /**
@@ -118,13 +143,5 @@ export class DeptEditComponent implements OnInit {
       type: 'cancel',
       data: null,
     });
-  }
-
-  /**
-   * 将 formGroup 中的控件验证状态转换为字符串。用于触发 nz-form-explain 显示验证错误信息
-   */
-  get validationState() {
-    return null;
-    // return util.form.getValidationStat(this.formGroup);
   }
 }

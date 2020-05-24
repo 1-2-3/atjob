@@ -2,10 +2,12 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-import { NgZorroAntdModule } from 'ng-zorro-antd';
 import { ZorroSharperModule } from 'zorro-sharper';
+import { STModule } from '@delon/abc/st';
+import { AlainThemeModule } from '@delon/theme';
 
-const THIRDMODULES = [NgZorroAntdModule, ZorroSharperModule];
+import { SHARED_ZORRO_MODULES } from './shared-zorro.module';
+const THIRDMODULES = [ZorroSharperModule, STModule];
 
 const COMPONENTS = [];
 const DIRECTIVES = [];
@@ -16,6 +18,8 @@ const DIRECTIVES = [];
     FormsModule,
     RouterModule,
     ReactiveFormsModule,
+    AlainThemeModule.forChild(),
+    ...SHARED_ZORRO_MODULES,
     // third libs
     ...THIRDMODULES,
   ],
@@ -29,6 +33,8 @@ const DIRECTIVES = [];
     FormsModule,
     ReactiveFormsModule,
     RouterModule,
+    AlainThemeModule,
+    ...SHARED_ZORRO_MODULES,
     ...THIRDMODULES,
     // your components
     ...COMPONENTS,

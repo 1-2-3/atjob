@@ -26,17 +26,8 @@ class DeptExample {
             case "code":
                 result = "T.CODE";
                 break;
-            case "treeIds":
-                result = "T.TREE_IDS";
-                break;
             case "parent":
                 result = "T.PARENT";
-                break;
-            case "isLeaf":
-                result = "T.IS_LEAF";
-                break;
-            case "nodeLevel":
-                result = "T.NODE_LEVEL";
                 break;
             case "inputCode":
                 result = "T.INPUT_CODE";
@@ -375,76 +366,6 @@ class DeptExample {
             return (Criteria) this;
         }
 
-        public Criteria andTreeIdsIsNull() {
-            addCriterion("T.TREE_IDS is null");
-            return (Criteria) this;
-        }
-
-        public Criteria andTreeIdsIsNotNull() {
-            addCriterion("T.TREE_IDS is not null");
-            return (Criteria) this;
-        }
-
-        public Criteria andTreeIdsEqualTo(String value) {
-            addCriterion("T.TREE_IDS =", value, "treeIds");
-            return (Criteria) this;
-        }
-
-        public Criteria andTreeIdsNotEqualTo(String value) {
-            addCriterion("T.TREE_IDS <>", value, "treeIds");
-            return (Criteria) this;
-        }
-
-        public Criteria andTreeIdsGreaterThan(String value) {
-            addCriterion("T.TREE_IDS >", value, "treeIds");
-            return (Criteria) this;
-        }
-
-        public Criteria andTreeIdsGreaterThanOrEqualTo(String value) {
-            addCriterion("T.TREE_IDS >=", value, "treeIds");
-            return (Criteria) this;
-        }
-
-        public Criteria andTreeIdsLessThan(String value) {
-            addCriterion("T.TREE_IDS <", value, "treeIds");
-            return (Criteria) this;
-        }
-
-        public Criteria andTreeIdsLessThanOrEqualTo(String value) {
-            addCriterion("T.TREE_IDS <=", value, "treeIds");
-            return (Criteria) this;
-        }
-
-        public Criteria andTreeIdsLike(String value) {
-            addCriterion("T.TREE_IDS like", value, "treeIds");
-            return (Criteria) this;
-        }
-
-        public Criteria andTreeIdsNotLike(String value) {
-            addCriterion("T.TREE_IDS not like", value, "treeIds");
-            return (Criteria) this;
-        }
-
-        public Criteria andTreeIdsIn(List<String> values) {
-            addCriterion("T.TREE_IDS in", values, "treeIds");
-            return (Criteria) this;
-        }
-
-        public Criteria andTreeIdsNotIn(List<String> values) {
-            addCriterion("T.TREE_IDS not in", values, "treeIds");
-            return (Criteria) this;
-        }
-
-        public Criteria andTreeIdsBetween(String value1, String value2) {
-            addCriterion("T.TREE_IDS between", value1, value2, "treeIds");
-            return (Criteria) this;
-        }
-
-        public Criteria andTreeIdsNotBetween(String value1, String value2) {
-            addCriterion("T.TREE_IDS not between", value1, value2, "treeIds");
-            return (Criteria) this;
-        }
-
         public Criteria andParentIsNull() {
             addCriterion("T.PARENT is null");
             return (Criteria) this;
@@ -512,126 +433,6 @@ class DeptExample {
 
         public Criteria andParentNotBetween(String value1, String value2) {
             addCriterion("T.PARENT not between", value1, value2, "parent");
-            return (Criteria) this;
-        }
-
-        public Criteria andIsLeafIsNull() {
-            addCriterion("T.IS_LEAF is null");
-            return (Criteria) this;
-        }
-
-        public Criteria andIsLeafIsNotNull() {
-            addCriterion("T.IS_LEAF is not null");
-            return (Criteria) this;
-        }
-
-        public Criteria andIsLeafEqualTo(Boolean value) {
-            addCriterion("T.IS_LEAF =", value, "isLeaf");
-            return (Criteria) this;
-        }
-
-        public Criteria andIsLeafNotEqualTo(Boolean value) {
-            addCriterion("T.IS_LEAF <>", value, "isLeaf");
-            return (Criteria) this;
-        }
-
-        public Criteria andIsLeafGreaterThan(Boolean value) {
-            addCriterion("T.IS_LEAF >", value, "isLeaf");
-            return (Criteria) this;
-        }
-
-        public Criteria andIsLeafGreaterThanOrEqualTo(Boolean value) {
-            addCriterion("T.IS_LEAF >=", value, "isLeaf");
-            return (Criteria) this;
-        }
-
-        public Criteria andIsLeafLessThan(Boolean value) {
-            addCriterion("T.IS_LEAF <", value, "isLeaf");
-            return (Criteria) this;
-        }
-
-        public Criteria andIsLeafLessThanOrEqualTo(Boolean value) {
-            addCriterion("T.IS_LEAF <=", value, "isLeaf");
-            return (Criteria) this;
-        }
-
-        public Criteria andIsLeafIn(List<Boolean> values) {
-            addCriterion("T.IS_LEAF in", values, "isLeaf");
-            return (Criteria) this;
-        }
-
-        public Criteria andIsLeafNotIn(List<Boolean> values) {
-            addCriterion("T.IS_LEAF not in", values, "isLeaf");
-            return (Criteria) this;
-        }
-
-        public Criteria andIsLeafBetween(Boolean value1, Boolean value2) {
-            addCriterion("T.IS_LEAF between", value1, value2, "isLeaf");
-            return (Criteria) this;
-        }
-
-        public Criteria andIsLeafNotBetween(Boolean value1, Boolean value2) {
-            addCriterion("T.IS_LEAF not between", value1, value2, "isLeaf");
-            return (Criteria) this;
-        }
-
-        public Criteria andNodeLevelIsNull() {
-            addCriterion("T.NODE_LEVEL is null");
-            return (Criteria) this;
-        }
-
-        public Criteria andNodeLevelIsNotNull() {
-            addCriterion("T.NODE_LEVEL is not null");
-            return (Criteria) this;
-        }
-
-        public Criteria andNodeLevelEqualTo(Integer value) {
-            addCriterion("T.NODE_LEVEL =", value, "nodeLevel");
-            return (Criteria) this;
-        }
-
-        public Criteria andNodeLevelNotEqualTo(Integer value) {
-            addCriterion("T.NODE_LEVEL <>", value, "nodeLevel");
-            return (Criteria) this;
-        }
-
-        public Criteria andNodeLevelGreaterThan(Integer value) {
-            addCriterion("T.NODE_LEVEL >", value, "nodeLevel");
-            return (Criteria) this;
-        }
-
-        public Criteria andNodeLevelGreaterThanOrEqualTo(Integer value) {
-            addCriterion("T.NODE_LEVEL >=", value, "nodeLevel");
-            return (Criteria) this;
-        }
-
-        public Criteria andNodeLevelLessThan(Integer value) {
-            addCriterion("T.NODE_LEVEL <", value, "nodeLevel");
-            return (Criteria) this;
-        }
-
-        public Criteria andNodeLevelLessThanOrEqualTo(Integer value) {
-            addCriterion("T.NODE_LEVEL <=", value, "nodeLevel");
-            return (Criteria) this;
-        }
-
-        public Criteria andNodeLevelIn(List<Integer> values) {
-            addCriterion("T.NODE_LEVEL in", values, "nodeLevel");
-            return (Criteria) this;
-        }
-
-        public Criteria andNodeLevelNotIn(List<Integer> values) {
-            addCriterion("T.NODE_LEVEL not in", values, "nodeLevel");
-            return (Criteria) this;
-        }
-
-        public Criteria andNodeLevelBetween(Integer value1, Integer value2) {
-            addCriterion("T.NODE_LEVEL between", value1, value2, "nodeLevel");
-            return (Criteria) this;
-        }
-
-        public Criteria andNodeLevelNotBetween(Integer value1, Integer value2) {
-            addCriterion("T.NODE_LEVEL not between", value1, value2, "nodeLevel");
             return (Criteria) this;
         }
 

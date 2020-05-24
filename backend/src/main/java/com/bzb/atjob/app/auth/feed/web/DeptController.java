@@ -1,5 +1,7 @@
 package com.bzb.atjob.app.auth.feed.web;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import com.bzb.atjob.app.auth.core.entity.Dept;
@@ -32,13 +34,10 @@ public class DeptController extends BaseController {
     public ApiResult<List<Dept>> getDeptList(
             @ApiParam(value = "页号", required = false) @RequestParam(required = false) Integer pageNum,
             @ApiParam(value = "每页条数", required = false) @RequestParam(required = false) Integer pageSize,
-            @ApiParam(value = "是否按名称排序,传入 null|asc|desc", required = false) @RequestParam(required = false) String orderByName,
-            @ApiParam(value = "是否按编码排序,传入 null|asc|desc", required = false) @RequestParam(required = false) String orderByCode,
-            @ApiParam(value = "是否按创建日期排序,传入 null|asc|desc", required = false) @RequestParam(required = false) String orderByCreateTime,
+            @ApiParam(value = "排序", required = false) @RequestParam(required = false) String sort,
             @ApiParam(value = "模糊查询", required = false) @RequestParam(required = false) String query) {
 
-        PaggingResult<Dept> result = deptService.getDeptList(pageNum, pageSize, orderByName, orderByCode,
-                orderByCreateTime, query);
+        PaggingResult<Dept> result = deptService.getDeptList(pageNum, pageSize, sort, query);
         return ApiResult.successDataTotal(result.getData(), result.getTotal());
     }
 
