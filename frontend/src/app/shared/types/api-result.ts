@@ -1,3 +1,6 @@
+/**
+ * 后端 web api 返回数据的类型
+ */
 export interface ApiResult {
   success: boolean;
   data: any;

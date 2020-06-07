@@ -36,9 +36,6 @@ public class Dept {
     @ApiModelProperty(value = "是否停用", required = false)
     private Boolean isStop;
 
-    @ApiModelProperty(value = "部门名称英文", required = false)
-    private String nameEn;
-
     @ApiModelProperty(value = "创建时间", required = false)
     private Date createTime;
 
@@ -66,7 +63,6 @@ public class Dept {
         sb.append(", description=").append(description);
         sb.append(", isStop=").append(isStop);
         sb.append(", createTime=").append(createTime);
-        sb.append(", nameEn=").append(nameEn);
         sb.append(", createUserId=").append(createUserId);
         sb.append(", modifyUserId=").append(modifyUserId);
         sb.append(", modifyTime=").append(modifyTime);

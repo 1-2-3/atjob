@@ -11,7 +11,6 @@
     <result column="T_DESCRIPTION" jdbcType="VARCHAR" property="description" />
     <result column="T_IS_STOP" jdbcType="DECIMAL" property="isStop" />
     <result column="T_CREATE_TIME" jdbcType="TIMESTAMP" property="createTime" />
-    <result column="T_NAME_EN" jdbcType="VARCHAR" property="nameEn" />
     <result column="T_CREATE_USER_ID" jdbcType="VARCHAR" property="createUserId" />
     <result column="T_MODIFY_USER_ID" jdbcType="VARCHAR" property="modifyUserId" />
     <result column="T_MODIFY_TIME" jdbcType="TIMESTAMP" property="modifyTime" />
@@ -50,7 +49,7 @@
     T.NAME as T_NAME, T.CODE as T_CODE, T.PARENT as T_PARENT,
     T.INPUT_CODE as T_INPUT_CODE,
     T.INDEX_FIELD as T_INDEX_FIELD, T.DESCRIPTION as T_DESCRIPTION, T.IS_STOP as T_IS_STOP,
-    T.CREATE_TIME as T_CREATE_TIME, T.NAME_EN as T_NAME_EN, T.CREATE_USER_ID as T_CREATE_USER_ID,
+    T.CREATE_TIME as T_CREATE_TIME, T.CREATE_USER_ID as T_CREATE_USER_ID,
     T.MODIFY_USER_ID as T_MODIFY_USER_ID, T.MODIFY_TIME as T_MODIFY_TIME
   </sql>
   <select id="selectByExample" parameterType="com.bzb.atjob.app.auth.core.repository.DeptExample" resultMap="BaseResultMap">
@@ -83,7 +82,7 @@
       NAME, CODE,
       PARENT,
       INPUT_CODE, INDEX_FIELD, DESCRIPTION,
-      IS_STOP, CREATE_TIME, NAME_EN,
+      IS_STOP, CREATE_TIME,
       CREATE_USER_ID, MODIFY_USER_ID, MODIFY_TIME
       )
     values (#{deptId,jdbcType=VARCHAR},
@@ -123,9 +122,6 @@
       </if>
       <if test="createTime != null">
         CREATE_TIME,
-      </if>
-      <if test="nameEn != null">
-        NAME_EN,
       </if>
       <if test="createUserId != null">
         CREATE_USER_ID,
@@ -212,9 +208,6 @@
       <if test="createTime != null">
         CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
       </if>
-      <if test="nameEn != null">
-        NAME_EN = #{nameEn,jdbcType=VARCHAR},
-      </if>
       <if test="createUserId != null">
         CREATE_USER_ID = #{createUserId,jdbcType=VARCHAR},
       </if>
@@ -238,7 +231,6 @@
       DESCRIPTION = #{description,jdbcType=VARCHAR},
       IS_STOP = #{isStop,jdbcType=DECIMAL},
       CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
-      NAME_EN = #{nameEn,jdbcType=VARCHAR},
       CREATE_USER_ID = #{createUserId,jdbcType=VARCHAR},
       MODIFY_USER_ID = #{modifyUserId,jdbcType=VARCHAR},
       MODIFY_TIME = #{modifyTime,jdbcType=TIMESTAMP}

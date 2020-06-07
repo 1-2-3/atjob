@@ -44,9 +44,6 @@ class DeptExample {
             case "createTime":
                 result = "T.CREATE_TIME";
                 break;
-            case "nameEn":
-                result = "T.NAME_EN";
-                break;
             case "createUserId":
                 result = "T.CREATE_USER_ID";
                 break;
@@ -753,76 +750,6 @@ class DeptExample {
 
         public Criteria andCreateTimeNotBetween(Date value1, Date value2) {
             addCriterion("T.CREATE_TIME not between", value1, value2, "createTime");
-            return (Criteria) this;
-        }
-
-        public Criteria andNameEnIsNull() {
-            addCriterion("T.NAME_EN is null");
-            return (Criteria) this;
-        }
-
-        public Criteria andNameEnIsNotNull() {
-            addCriterion("T.NAME_EN is not null");
-            return (Criteria) this;
-        }
-
-        public Criteria andNameEnEqualTo(String value) {
-            addCriterion("T.NAME_EN =", value, "nameEn");
-            return (Criteria) this;
-        }
-
-        public Criteria andNameEnNotEqualTo(String value) {
-            addCriterion("T.NAME_EN <>", value, "nameEn");
-            return (Criteria) this;
-        }
-
-        public Criteria andNameEnGreaterThan(String value) {
-            addCriterion("T.NAME_EN >", value, "nameEn");
-            return (Criteria) this;
-        }
-
-        public Criteria andNameEnGreaterThanOrEqualTo(String value) {
-            addCriterion("T.NAME_EN >=", value, "nameEn");
-            return (Criteria) this;
-        }
-
-        public Criteria andNameEnLessThan(String value) {
-            addCriterion("T.NAME_EN <", value, "nameEn");
-            return (Criteria) this;
-        }
-
-        public Criteria andNameEnLessThanOrEqualTo(String value) {
-            addCriterion("T.NAME_EN <=", value, "nameEn");
-            return (Criteria) this;
-        }
-
-        public Criteria andNameEnLike(String value) {
-            addCriterion("T.NAME_EN like", value, "nameEn");
-            return (Criteria) this;
-        }
-
-        public Criteria andNameEnNotLike(String value) {
-            addCriterion("T.NAME_EN not like", value, "nameEn");
-            return (Criteria) this;
-        }
-
-        public Criteria andNameEnIn(List<String> values) {
-            addCriterion("T.NAME_EN in", values, "nameEn");
-            return (Criteria) this;
-        }
-
-        public Criteria andNameEnNotIn(List<String> values) {
-            addCriterion("T.NAME_EN not in", values, "nameEn");
-            return (Criteria) this;
-        }
-
-        public Criteria andNameEnBetween(String value1, String value2) {
-            addCriterion("T.NAME_EN between", value1, value2, "nameEn");
-            return (Criteria) this;
-        }
-
-        public Criteria andNameEnNotBetween(String value1, String value2) {
-            addCriterion("T.NAME_EN not between", value1, value2, "nameEn");
             return (Criteria) this;
         }
 
