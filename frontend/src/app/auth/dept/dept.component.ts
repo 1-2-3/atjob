@@ -1,21 +1,20 @@
 import { NzModalService, NzMessageService, NzTreeComponent } from 'ng-zorro-antd';
 import { DeptEditComponent } from './edit/dept-edit.component';
-import { Component, ViewChild } from '@angular/core';
+import { Component, ViewChild, OnInit } from '@angular/core';
 import { DeptService } from './dept.service';
 import { map } from 'rxjs/operators';
 import { STColumn, STRes, STData } from '@delon/abc';
 import { ApiResult } from 'src/app/shared/types/api-result';
 
 @Component({
-  selector: 'auth-dept',
   styleUrls: ['dept.component.less'],
   templateUrl: './dept.component.html',
 })
-export class DeptComponent {
+export class DeptComponent implements OnInit {
   constructor(private deptService: DeptService, private modalService: NzModalService, private msg: NzMessageService) {}
 
-  deptLoading = false; //科室树是否在加载中
-  deptTreeData = []; //科室树数据源
+  deptLoading = false; // 科室树是否在加载中
+  deptTreeData = []; // 科室树数据源
   @ViewChild('deptTree') deptTree: NzTreeComponent;
   deptSelectedKeys = []; // 科室树选中节点
 
@@ -58,7 +57,7 @@ export class DeptComponent {
       nzFooter: null, // 不显示自带的底部按钮栏，因为表单组件自己会添加底部按钮栏
     });
     modal.afterClose.subscribe((r) => {
-      if (r && r.type == 'ok') {
+      if (r && r.type === 'ok') {
         // 保存成功后刷新科室树
         this.loadDeptTree();
       }
@@ -93,7 +92,7 @@ export class DeptComponent {
     });
 
     modal.afterClose.subscribe((r) => {
-      if (r && r.type == 'ok') {
+      if (r && r.type === 'ok') {
         // 保存成功后刷新科室树
         this.loadDeptTree();
       }

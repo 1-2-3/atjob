@@ -1,11 +1,9 @@
 package com.bzb.atjob.app.auth.feed.web;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 
+import com.bzb.atjob.app.auth.core.application.DeptApplicationService;
 import com.bzb.atjob.app.auth.core.entity.Dept;
-import com.bzb.atjob.app.auth.core.service.DeptService;
 import com.bzb.atjob.common.basetypes.BaseController;
 import com.bzb.atjob.common.vo.ApiResult;
 import com.bzb.atjob.common.vo.PaggingResult;
@@ -23,17 +21,17 @@ import io.swagger.annotations.ApiParam;
 
 @RestController
 @RequestMapping({ "/api/v1/dept" })
-@Api(value = "/api/v1/dept", tags = "科室")
+@Api(value = "/api/v1/dept", tags = "部门")
 public class DeptController extends BaseController {
 
     @Autowired
-    DeptService deptService;
+    DeptApplicationService deptService;
 
-    @ApiOperation(value = "获取科室列表", notes = "")
+    @ApiOperation(value = "获取部门列表", notes = "")
     @RequestMapping(method = RequestMethod.GET, path = "getDeptList")
     public ApiResult<List<Dept>> getDeptList(
-            @ApiParam(value = "页号", required = false) @RequestParam(required = false) Integer pageNum,
-            @ApiParam(value = "每页条数", required = false) @RequestParam(required = false) Integer pageSize,
+            @ApiParam(value = "页号", required = false) @RequestParam(required = false) Long pageNum,
+            @ApiParam(value = "每页条数", required = false) @RequestParam(required = false) Long pageSize,
             @ApiParam(value = "排序", required = false) @RequestParam(required = false) String sort,
             @ApiParam(value = "模糊查询", required = false) @RequestParam(required = false) String query) {
 
@@ -41,35 +39,20 @@ public class DeptController extends BaseController {
         return ApiResult.successDataTotal(result.getData(), result.getTotal());
     }
 
-    @ApiOperation(value = "判断科室信息是否已存在")
-    @RequestMapping(method = RequestMethod.GET, path = "isDeptExists")
-    public ApiResult<Object> isDeptExists(
-            @ApiParam(value = "主键", required = false) @RequestParam(required = false) String deptId,
-            @ApiParam(value = "编码", required = true) @RequestParam(required = true) String code) {
-        return ApiResult.successData(deptService.isDeptExists(deptId, code));
-    }
-
-    @ApiOperation(value = "获取科室实体")
+    @ApiOperation(value = "获取匹配主键的部门")
     @RequestMapping(method = RequestMethod.GET, path = "getDeptById")
     public ApiResult<Dept> getDeptById(@RequestParam(required = true) String deptId) {
         return ApiResult.successData(deptService.getDeptById(deptId));
     }
 
-    @ApiOperation(value = "新增科室")
+    @ApiOperation(value = "保存或更新部门")
     @RequestMapping(method = RequestMethod.POST, path = "saveDept")
     public ApiResult<Object> saveDept(@RequestBody Dept entity) {
         deptService.saveDept(entity);
         return ApiResult.success();
     }
 
-    @ApiOperation(value = "修改科室")
-    @RequestMapping(method = RequestMethod.POST, path = "updateDept")
-    public ApiResult<Object> updateDept(@RequestBody Dept dept) {
-        deptService.updateDept(dept);
-        return ApiResult.success();
-    }
-
-    @ApiOperation(value = "删除科室")
+    @ApiOperation(value = "删除部门")
     @RequestMapping(method = RequestMethod.POST, path = "deleteDept")
     public ApiResult<Object> deleteDept(
             @ApiParam(value = "主键", required = true) @RequestParam(required = true) String deptId) {

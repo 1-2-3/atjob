@@ -9,7 +9,6 @@ import { CascaderUtil } from 'src/app/shared/utils/cascader-util';
 import { ApiResult } from 'src/app/shared/types/api-result';
 
 @Component({
-  selector: 'dept-edit',
   templateUrl: './dept-edit.component.html',
 })
 export class DeptEditComponent implements OnInit {
@@ -20,7 +19,7 @@ export class DeptEditComponent implements OnInit {
 
   formGroup: FormGroup; // 表单对象
   loading = false; // 是否正在加载数据
-  submitting: boolean = false; // 是否正在提交中
+  submitting = false; // 是否正在提交中
   parentOptions = []; // “父节点”数据源
 
   constructor(
@@ -35,16 +34,16 @@ export class DeptEditComponent implements OnInit {
    */
   ngOnInit(): void {
     this.formGroup = this.formBuilder.group({
-      deptId: ['', []], //科室Id
-      name: ['', [Validators.required]], //部门名称
-      code: ['', [Validators.required]], //部门编码
-      parent: [[]], //父节ID
-      parentCascadeValue: [[]], //父节ID 级联下拉框Value
-      inputCode: [], //录入码
-      description: [], //描述
+      deptId: ['', []], // 科室Id
+      name: ['', [Validators.required]], // 部门名称
+      code: ['', [Validators.required]], // 部门编码
+      parent: [[]], // 父节ID
+      parentCascadeValue: [[]], // 父节ID 级联下拉框Value
+      inputCode: [], // 录入码
+      description: [], // 描述
       indexField: [], // 排序
       isStop: [], // 是否停用
-      nameEn: [], //英文名称
+      nameEn: [], // 英文名称
     });
 
     this.loadData();
@@ -94,44 +93,29 @@ export class DeptEditComponent implements OnInit {
    * 提交
    */
   submit() {
-    for (const i in this.formGroup.controls) {
-      this.formGroup.controls[i].markAsDirty();
-      this.formGroup.controls[i].updateValueAndValidity();
+    if (this.formGroup.controls) {
+      for (const i of Object.keys(this.formGroup.controls)) {
+        this.formGroup.controls[i].markAsDirty();
+        this.formGroup.controls[i].updateValueAndValidity();
+      }
     }
 
     if (this.formGroup.valid) {
       // 级联下拉框的值为数组，提交前取数组最后一个元素
       CascaderUtil.cascaderValueToPropValue(this.formGroup, 'parent', 'parentCascadeValue');
 
-      if (this.opts.operType === 'add') {
-        this.submitting = true;
-        this.deptService.saveDept(this.formGroup.value).subscribe((r: ApiResult) => {
-          this.submitting = false;
+      this.submitting = true;
+      this.deptService.saveDept(this.formGroup.value).subscribe((r: ApiResult) => {
+        this.submitting = false;
 
-          // 提交完成关闭子窗口
-          if (r.success) {
-            this.modal.destroy({
-              type: 'ok',
-              data: null,
-            });
-          }
-        });
-      } else if (this.opts.operType === 'edit') {
-        this.submitting = true;
-        this.deptService.updateDept(this.formGroup.value).subscribe((r: ApiResult) => {
-          this.submitting = false;
-
-          // 提交完成关闭子窗口
-          if (r.success) {
-            this.modal.destroy({
-              type: 'ok',
-              data: null,
-            });
-          }
-        });
-      } else {
-        const neverReachHere: never = this.opts.operType;
-      }
+        // 提交完成关闭子窗口
+        if (r.success) {
+          this.modal.destroy({
+            type: 'ok',
+            data: null,
+          });
+        }
+      });
     }
   }
 

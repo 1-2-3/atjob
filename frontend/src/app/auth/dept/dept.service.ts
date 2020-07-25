@@ -10,7 +10,7 @@ export class DeptService {
   constructor(private http: HttpClient) {}
 
   /**
-   * 获取全部科室列表构建树形结构
+   * 获取全部部门列表构建树形结构
    */
   getDeptTree() {
     return this.http
@@ -35,43 +35,32 @@ export class DeptService {
   }
 
   /**
-   * 获取科室详细信息
-   * @param deptId
+   * 获取部门详细信息
    */
   getDeptById(deptId: string) {
     return this.http.get(`api/v1/dept/getDeptById`, {
       params: {
-        deptId: deptId,
+        deptId,
       },
     });
   }
 
   /**
-   * 新增科室
-   * @param formData
+   * 新增或修改部门
    */
   saveDept(formData: any) {
     return this.http.post(`api/v1/dept/saveDept`, formData);
   }
 
   /**
-   * 更新科室信息
-   * @param formData
-   */
-  updateDept(formData: any) {
-    return this.http.post(`api/v1/dept/updateDept`, formData);
-  }
-
-  /**
-   * 删除科室
-   * @param deptId
+   * 删除部门
    */
   deleteDept(deptId: string) {
     return this.http.post(
       `api/v1/dept/deleteDept`,
       {},
       {
-        params: { deptId: deptId },
+        params: { deptId },
       },
     );
   }

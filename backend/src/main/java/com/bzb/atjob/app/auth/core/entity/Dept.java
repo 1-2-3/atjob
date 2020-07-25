@@ -2,16 +2,19 @@ package com.bzb.atjob.app.auth.core.entity;
 
 import java.util.Date;
 
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableName;
+
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
 @ApiModel(description = "部门")
-@Getter
-@Setter
+@Data
+@TableName(value = "AUTH_DEPT")
 public class Dept {
+    @TableId(type = IdType.ASSIGN_ID)
     @ApiModelProperty(value = "DEPT_ID", required = false)
     private String deptId;
 
@@ -47,26 +50,4 @@ public class Dept {
 
     @ApiModelProperty(value = "修改时间", required = false)
     private Date modifyTime;
-
-    @Override
-    public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append(getClass().getSimpleName());
-        sb.append(" [");
-        sb.append("Hash = ").append(hashCode());
-        sb.append(", deptId=").append(deptId);
-        sb.append(", name=").append(name);
-        sb.append(", code=").append(code);
-        sb.append(", parent=").append(parent);
-        sb.append(", inputCode=").append(inputCode);
-        sb.append(", indexField=").append(indexField);
-        sb.append(", description=").append(description);
-        sb.append(", isStop=").append(isStop);
-        sb.append(", createTime=").append(createTime);
-        sb.append(", createUserId=").append(createUserId);
-        sb.append(", modifyUserId=").append(modifyUserId);
-        sb.append(", modifyTime=").append(modifyTime);
-        sb.append("]");
-        return sb.toString();
-    }
 }

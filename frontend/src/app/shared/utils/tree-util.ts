@@ -6,8 +6,8 @@ export class TreeUtil {
    * @param parentIdName 父节点Id属性名
    */
   static buildTree(data: any[], idName, parentIdName, labelName = 'name', titleName = 'name') {
-    const attachChildNodes = (data: any[], node) => {
-      const childNodes = data.filter((d) => d[parentIdName] === node[idName]);
+    const attachChildNodes = (nodeList: any[], node) => {
+      const childNodes = nodeList.filter((d) => d[parentIdName] === node[idName]);
       node.key = node[idName];
       node.value = node[idName];
       node.label = node[labelName];
@@ -17,7 +17,7 @@ export class TreeUtil {
 
       for (const childNode of childNodes) {
         childNode.parentNode = node;
-        attachChildNodes(data, childNode);
+        attachChildNodes(nodeList, childNode);
       }
     };
 
@@ -31,15 +31,13 @@ export class TreeUtil {
 
   /**
    * 获取当前节点 node 所有上级节点的 Id 列表
-   * @param node
-   * @param idName
    */
   static getParentIdList(node, idName): string[] {
-    const appendParentId = (node, idName): string[] => {
-      if (node.parentNode) {
-        return [...appendParentId(node.parentNode, idName), node[idName]];
+    const appendParentId = (nodeParam, idNameParam): string[] => {
+      if (nodeParam.parentNode) {
+        return [...appendParentId(nodeParam.parentNode, idNameParam), nodeParam[idNameParam]];
       } else {
-        return [node[idName]];
+        return [nodeParam[idNameParam]];
       }
     };
 
@@ -58,7 +56,7 @@ export class TreeUtil {
       if (node[idName] === idValue) {
         result = node;
       } else if (node.children && node.children.length) {
-        let childNode = this.findNodeById(node.children, idValue, idName);
+        const childNode = this.findNodeById(node.children, idValue, idName);
         if (childNode) {
           result = childNode;
         }
