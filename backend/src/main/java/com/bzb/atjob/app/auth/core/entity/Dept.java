@@ -2,7 +2,9 @@ package com.bzb.atjob.app.auth.core.entity;
 
 import java.util.Date;
 
+import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 
@@ -39,6 +41,7 @@ public class Dept {
     @ApiModelProperty(value = "是否停用", required = false)
     private Boolean isStop;
 
+    @TableField(fill = FieldFill.INSERT)
     @ApiModelProperty(value = "创建时间", required = false)
     private Date createTime;
 
@@ -48,6 +51,7 @@ public class Dept {
     @ApiModelProperty(value = "修改人id@AUTH_USER", required = false)
     private String modifyUserId;
 
+    @TableField(fill = FieldFill.UPDATE)
     @ApiModelProperty(value = "修改时间", required = false)
     private Date modifyTime;
 }
