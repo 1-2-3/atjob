@@ -1,17 +1,16 @@
 package com.bzb.atjob.config;
 
-import java.time.LocalDateTime;
 import java.util.Date;
 
 import com.baomidou.mybatisplus.core.handlers.MetaObjectHandler;
-import lombok.extern.slf4j.Slf4j;
+// import lombok.extern.slf4j.Slf4j;
 import org.apache.ibatis.reflection.MetaObject;
 import org.springframework.stereotype.Component;
 
 /**
  * 自动填充
  */
-@Slf4j
+// @Slf4j
 @Component
 public class AutoFillHandler implements MetaObjectHandler {
 
