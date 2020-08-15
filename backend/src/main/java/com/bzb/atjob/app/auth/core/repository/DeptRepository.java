@@ -70,14 +70,18 @@ public class DeptRepository {
     }
 
     /**
-     * 判断科室信息是否已存在
+     * 判断部门信息是否已存在
      *
      * @param deptId
      * @return
      */
     private boolean isDeptExists(String deptId, String code) {
-        return deptMapper
-                .selectCount(new QueryWrapper<Dept>().lambda().ne(Dept::getDeptId, deptId).eq(Dept::getCode, code)) > 0;
+        if (StringUtils.isBlank(deptId)) {
+            return deptMapper.selectCount(new QueryWrapper<Dept>().lambda().eq(Dept::getCode, code)) > 0;
+        } else {
+            return deptMapper.selectCount(
+                    new QueryWrapper<Dept>().lambda().ne(Dept::getDeptId, deptId).eq(Dept::getCode, code)) > 0;
+        }
     }
 
     /**

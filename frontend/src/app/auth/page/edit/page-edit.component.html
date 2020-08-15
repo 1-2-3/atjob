@@ -1,0 +1,96 @@
+<form nz-form [formGroup]="formGroup" (ngSubmit)="submit()" nzType="horizontal">
+  <nz-spin [nzSpinning]="loading">
+    <div nz-row>
+      <div nz-col nzSpan="12">
+        <nz-form-item nsFormItem>
+          <nz-form-label nsFormLabel nzSpan="8">名称</nz-form-label>
+          <nz-form-control nsFormControl nzSpan="16">
+            <input nz-input formControlName="name" />
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+      <div nz-col nzSpan="12">
+        <nz-form-item nsFormItem>
+          <nz-form-label nsFormLabel nzSpan="8">编码</nz-form-label>
+          <nz-form-control nsFormControl nzSpan="16">
+            <input nz-input formControlName="code" />
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+    </div>
+    <div nz-row>
+      <div nz-col nzSpan="12">
+        <nz-form-item nsFormItem>
+          <nz-form-label nsFormLabel nzSpan="8">父节点</nz-form-label>
+          <nz-form-control nsFormControl nzSpan="16">
+            <nz-cascader
+              formControlName="parentCascadeValue"
+              nzPlaceHolder="请选择"
+              nzChangeOnSelect="true"
+              [nzOptions]="parentOptions"
+              [nzAllowClear]="true"
+            ></nz-cascader>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+      <div nz-col nzSpan="12">
+        <nz-form-item nsFormItem>
+          <nz-form-label nsFormLabel nzSpan="8">录入码</nz-form-label>
+          <nz-form-control nsFormControl nzSpan="16">
+            <input nz-input formControlName="inputCode" />
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+    </div>
+    <div nz-row>
+      <div nz-col nzSpan="12">
+        <nz-form-item nsFormItem>
+          <nz-form-label nsFormLabel nzSpan="8">路径</nz-form-label>
+          <nz-form-control nsFormControl nzSpan="16">
+            <input nz-input formControlName="path" />
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+      <div nz-col nzSpan="12">
+        <nz-form-item nsFormItem>
+          <nz-form-label nsFormLabel nzSpan="8">图标</nz-form-label>
+          <nz-form-control nsFormControl nzSpan="16">
+            <input nz-input formControlName="icon" />
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+    </div>
+    <div nz-row>
+      <div nz-col nzSpan="12">
+        <nz-form-item nsFormItem>
+          <nz-form-label nsFormLabel nzSpan="8">排序</nz-form-label>
+          <nz-form-control nsFormControl nzSpan="16">
+            <nz-input-number formControlName="indexField" [nzMin]="1" class="app-full-width"></nz-input-number>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+      <div nz-col nzSpan="12">
+        <nz-form-item nsFormItem>
+          <nz-form-label nsFormLabel nzSpan="8">停用</nz-form-label>
+          <nz-form-control nsFormControl nzSpan="16">
+            <label nz-checkbox formControlName="isStop"></label>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+    </div>
+    <div nz-row>
+      <div nz-col nzSpan="12">
+        <nz-form-item nsFormItem>
+          <nz-form-label nsFormLabel nzSpan="8">隐藏</nz-form-label>
+          <nz-form-control nsFormControl nzSpan="16">
+            <label nz-checkbox formControlName="isHide"></label>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+    </div>
+  </nz-spin>
+  <div class="app-modal-footer">
+    <button nz-button type="button" (click)="cancel()">关闭</button>
+    <button nz-button [nzLoading]="submitting" [nzType]="'primary'">保存</button>
+  </div>
+</form>

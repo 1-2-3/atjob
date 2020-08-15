@@ -1,6 +1,7 @@
 package com.bzb.atjob.app.auth.core.entity;
 
 import java.util.Date;
+import java.util.Set;
 
 import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.annotation.IdType;
@@ -67,7 +68,7 @@ public class User {
     @ApiModelProperty(value = "修改时间", required = false)
     private Date modifyTime;
 
+    @ApiModelProperty(value = "拥有的角色", required = false)
     @TableField(exist = false)
-    @ApiModelProperty(value = "角色Id列表", required = false)
-    private String[] roleIds;
+    Set<RoleOwnedByUser> rolesOwned;
 }

@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
- * 科室管理应用服务
+ * 部门管理应用服务
  */
 @Service
 @Transactional

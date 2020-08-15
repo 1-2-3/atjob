@@ -1,0 +1,14 @@
+<div nz-row [nzGutter]="16">
+  <div nz-col>
+    <nz-card nsAutoHeightCard [nzLoading]="pageLoading" nzTitle="页面信息" [nzExtra]="pageExtra" class="page-card">
+      <ng-template #pageExtra>
+        <a (click)="showAddPageWin()">新增</a>
+        <nz-divider nzType="vertical"></nz-divider>
+        <a (click)="showModifyPageWin()">修改</a>
+        <nz-divider nzType="vertical"></nz-divider>
+        <a nz-popconfirm nzPopconfirmTitle="确定要删除吗？" (nzOnConfirm)="deletePage()">删除</a>
+      </ng-template>
+      <nz-tree [(nzData)]="pageTreeData" #pageTree></nz-tree>
+    </nz-card>
+  </div>
+</div>
