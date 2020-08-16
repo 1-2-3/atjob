@@ -30,6 +30,34 @@ export class TreeUtil {
   }
 
   /**
+   * 返回树节点中选中的叶子节点 key 值列表
+   */
+  static getCheckedLeafKeys(nodes) {
+    const getCheckedLeafKeysOfNode = (node) => {
+      const checkedLeafKeys = [];
+      if (node.isLeaf && node.checked) {
+        checkedLeafKeys.push(node.key);
+      }
+
+      if (node.children && node.children.length) {
+        const checkedLeafKeysOfChildren = node.children.reduce((result, child) => {
+          result.push(...getCheckedLeafKeysOfNode(child));
+          return result;
+        }, []);
+
+        checkedLeafKeys.push(...checkedLeafKeysOfChildren);
+      }
+
+      return checkedLeafKeys;
+    };
+
+    return nodes.reduce((result, node) => {
+      result.push(...getCheckedLeafKeysOfNode(node));
+      return result;
+    }, []);
+  }
+
+  /**
    * 获取当前节点 node 所有上级节点的 Id 列表
    */
   static getParentIdList(node, idName): string[] {

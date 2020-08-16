@@ -78,7 +78,7 @@ public class RoleRepository {
         Page<Role> page = MybatisUtil.createPage(pageNum, pageSize);
 
         // 排序
-        MybatisUtil.getOrderItemList(sort, Page.class, true).stream().forEach(page::addOrder);
+        MybatisUtil.getOrderItemList(sort, Role.class, true).stream().forEach(page::addOrder);
 
         // 筛选
         QueryWrapper<Role> wrapper = new QueryWrapper<Role>();

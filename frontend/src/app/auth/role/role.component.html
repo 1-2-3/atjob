@@ -1,14 +1,23 @@
 <div nz-row [nzGutter]="16">
-  <div nz-col>
-    角色
-    <!-- <nz-card nsAutoHeightCard [nzLoading]="roleLoading" nzTitle="角色信息" [nzExtra]="roleExtra" class="role-card">
-      <ng-template #deptExtra>
+  <div nz-col nzSpan="10">
+    <nz-card nsAutoHeightCard [nzLoading]="roleLoading" nzTitle="角色" [nzExtra]="roleExtra">
+      <ng-template #roleExtra>
         <a (click)="showAddRoleWin()">新增</a>
-        <nz-divider nzType="vertical"></nz-divider>
-        <a (click)="showModifyRoleWin()">修改</a>
-        <nz-divider nzType="vertical"></nz-divider>
-        <a nz-popconfirm nzPopconfirmTitle="确定要删除吗？" (nzOnConfirm)="deleteRole()">删除</a>
       </ng-template>
-    </nz-card> -->
+      <st #st [data]="'api/v1/role/getRoleList'" [columns]="columns"></st>
+    </nz-card>
+  </div>
+  <div nz-col nzSpan="14">
+    <nz-card nsAutoHeightCard [nzLoading]="pageLoading" [nzTitle]="pageCardTitle">
+      <nz-tree
+        [(nzData)]="pageTreeData"
+        [nzExpandAll]="expandAll"
+        nzCheckable
+        nzMultiple
+        [nzCheckedKeys]="pageCheckedKeys"
+        (nzCheckBoxChange)="pageTreeCheckboxChange($event)"
+        #pageTree
+      ></nz-tree>
+    </nz-card>
   </div>
 </div>

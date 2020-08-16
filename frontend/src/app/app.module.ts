@@ -60,6 +60,8 @@ const alainConfig: AlainConfig = {
       /** 列名与状态间分隔符，默认：`.` */
       nameSeparator: '.',
     },
+    size: 'small', // 默认小号
+    bordered: true, // 默认有边框线
   },
 };
 

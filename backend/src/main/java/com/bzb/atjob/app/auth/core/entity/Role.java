@@ -56,7 +56,8 @@ public class Role {
 
     @ApiModelProperty(value = "拥有的页面Id列表", required = false)
     public List<String> getPageIdListOwned() {
-        return this.pagesOwned.stream().map(t -> t.getPageId()).collect(Collectors.toList());
+        return this.pagesOwned == null ? null
+                : this.pagesOwned.stream().map(t -> t.getPageId()).collect(Collectors.toList());
     }
 
     @ApiModelProperty(value = "拥有的页面Id列表")
