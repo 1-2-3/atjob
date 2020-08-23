@@ -17,6 +17,10 @@ export class RoleService {
     });
   }
 
+  getRoleList() {
+    return this.http.get(`/api/v1/role/getRoleList`);
+  }
+
   saveRole(formData: any) {
     return this.http.post(`/api/v1/role/saveRole`, formData);
   }

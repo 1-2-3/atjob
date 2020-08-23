@@ -4,10 +4,12 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import io.swagger.annotations.ApiModelProperty;
+import lombok.Builder;
 import lombok.Value;
 
 /** 被角色拥有的页面. */
 @Value
+@Builder
 @TableName(value = "AUTH_ROLE_PAGE")
 public class PageOwnedByRole {
   @ApiModelProperty(value = "主键", required = false)

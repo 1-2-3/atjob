@@ -1,0 +1,10 @@
+<div nz-row [nzGutter]="16">
+  <div nz-col nzSpan="24">
+    <nz-card nsAutoHeightCard nzTitle="用户" [nzExtra]="userExtra">
+      <ng-template #userExtra>
+        <a (click)="showAddUserWin()">新增</a>
+      </ng-template>
+      <st #st [data]="'/api/v1/user/getUserList'" [columns]="columns"></st>
+    </nz-card>
+  </div>
+</div>

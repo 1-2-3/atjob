@@ -3,9 +3,10 @@ import { AuthRoutingModule } from './auth-routing.module';
 import { DeptModule } from './dept/dept.module';
 import { RoleModule } from './role/role.module';
 import { PageModule } from './page/page.module';
+import { UserModule } from './user/user.module';
 
 @NgModule({
-  imports: [AuthRoutingModule, DeptModule, RoleModule, PageModule],
+  imports: [AuthRoutingModule, DeptModule, RoleModule, PageModule, UserModule],
   providers: [],
   declarations: [],
 })

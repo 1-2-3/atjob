@@ -29,7 +29,6 @@ export class RoleComponent implements OnInit {
   pageCardTitle = '页面权限';
   currentRoleId = ''; // 当前选中要编辑页面权限的角色Id
 
-  roleLoading = false;
   @ViewChild('st') st;
 
   pageLoading = false;
@@ -115,9 +114,9 @@ export class RoleComponent implements OnInit {
 
         // 获取当前角色拥有的页面权限并设置页面权限树选中状态
         if (this.currentRoleId) {
-          this.roleService.getRoleById(this.currentRoleId).subscribe((r: ApiResult) => {
-            if (r.success) {
-              this.pageCheckedKeys = r.data.pageIdListOwned;
+          this.roleService.getRoleById(this.currentRoleId).subscribe((res: ApiResult) => {
+            if (res.success) {
+              this.pageCheckedKeys = res.data.pageIdListOwned;
               this.pageLoading = false;
             }
           });

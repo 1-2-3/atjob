@@ -77,7 +77,8 @@ public class Role {
 
     var newPagesOwned =
         pageIdList.stream()
-            .map(pageId -> new PageOwnedByRole(null, pageId, this.getRoleId()))
+            .map(
+                pageId -> PageOwnedByRole.builder().pageId(pageId).roleId(this.getRoleId()).build())
             .collect(Collectors.toList());
 
     this.setPagesOwned(newPagesOwned);
@@ -94,7 +95,13 @@ public class Role {
     if (this.pagesOwned != null) {
       var newPagesOwned =
           this.pagesOwned.stream()
-              .map(t -> new PageOwnedByRole(t.getRolePageId(), t.getPageId(), roleId))
+              .map(
+                  t ->
+                      PageOwnedByRole.builder()
+                          .rolePageId(t.getRolePageId())
+                          .pageId(t.getRolePageId())
+                          .roleId(roleId)
+                          .build())
               .collect(Collectors.toList());
 
       this.setPagesOwned(newPagesOwned);

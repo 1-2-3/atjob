@@ -1,0 +1,108 @@
+<form nz-form [formGroup]="formGroup" (ngSubmit)="submit()" nzType="horizontal">
+  <nz-spin [nzSpinning]="loading">
+    <div nz-row>
+      <div nz-col nzSpan="12">
+        <nz-form-item nsFormItem>
+          <nz-form-label nsFormLabel nzSpan="8">名称</nz-form-label>
+          <nz-form-control nsFormControl nzSpan="16">
+            <input nz-input formControlName="name" />
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+      <div nz-col nzSpan="12">
+        <nz-form-item nsFormItem>
+          <nz-form-label nsFormLabel nzSpan="8">编码</nz-form-label>
+          <nz-form-control nsFormControl nzSpan="16">
+            <input nz-input formControlName="code" />
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+    </div>
+    <div nz-row>
+      <div nz-col nzSpan="12">
+        <nz-form-item nsFormItem>
+          <nz-form-label nsFormLabel nzSpan="8">登录名</nz-form-label>
+          <nz-form-control nsFormControl nzSpan="16">
+            <input nz-input formControlName="loginName" />
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+      <div nz-col nzSpan="12">
+        <nz-form-item nsFormItem>
+          <nz-form-label nsFormLabel nzSpan="8">所属部门</nz-form-label>
+          <nz-form-control nsFormControl nzSpan="16">
+            <nz-cascader
+              formControlName="deptCascadeValue"
+              nzPlaceHolder="请选择"
+              nzChangeOnSelect="true"
+              [nzOptions]="deptOptions"
+              [nzAllowClear]="true"
+              (nzSelectionChange)="deptSelectionChange($event)"
+            ></nz-cascader>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+    </div>
+    <div nz-row>
+      <div nz-col nzSpan="12">
+        <nz-form-item nsFormItem>
+          <nz-form-label nsFormLabel nzSpan="8">录入码</nz-form-label>
+          <nz-form-control nsFormControl nzSpan="16">
+            <input nz-input formControlName="inputCode" />
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+      <div nz-col nzSpan="12">
+        <nz-form-item nsFormItem>
+          <nz-form-label nsFormLabel nzSpan="8">排序</nz-form-label>
+          <nz-form-control nsFormControl nzSpan="16">
+            <nz-input-number formControlName="indexField" [nzMin]="1" class="app-full-width"></nz-input-number>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+    </div>
+    <div nz-row>
+      <div nz-col nzSpan="12">
+        <nz-form-item nsFormItem>
+          <nz-form-label nsFormLabel nzSpan="8">电话</nz-form-label>
+          <nz-form-control nsFormControl nzSpan="16">
+            <input nz-input formControlName="phone" />
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+      <div nz-col nzSpan="12">
+        <nz-form-item nsFormItem>
+          <nz-form-label nsFormLabel nzSpan="8">停用</nz-form-label>
+          <nz-form-control nsFormControl nzSpan="16">
+            <label nz-checkbox formControlName="isStop"></label>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+    </div>
+    <div nz-row>
+      <div nz-col nzSpan="24">
+        <nz-form-item nsFormItem>
+          <nz-form-label nsFormLabel nzSpan="4">角色</nz-form-label>
+          <nz-form-control nsFormControl nzSpan="20">
+            <nz-select
+              formControlName="roleIdListOwned"
+              nzMode="multiple"
+              [nzPlaceHolder]="'请选择'"
+              [nzNotFoundContent]="'暂无数据'"
+            >
+              <nz-option
+                *ngFor="let option of roleOptions"
+                [nzLabel]="option.name"
+                [nzValue]="option.roleId"
+              ></nz-option>
+            </nz-select>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+    </div>
+  </nz-spin>
+  <div class="app-modal-footer">
+    <button nz-button type="button" (click)="cancel()">关闭</button>
+    <button nz-button [nzLoading]="submitting" [nzType]="'primary'">保存</button>
+  </div>
+</form>

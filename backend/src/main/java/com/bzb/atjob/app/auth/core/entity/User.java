@@ -5,16 +5,27 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.Date;
-import java.util.Set;
+import java.util.List;
+import java.util.stream.Collectors;
+import lombok.AccessLevel;
 import lombok.Data;
+import lombok.Setter;
+import org.springframework.security.crypto.factory.PasswordEncoderFactories;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 @ApiModel(description = "系统用户")
 @Data
 @TableName(value = "AUTH_USER")
 public class User {
+  @JsonIgnore
+  @TableField(exist = false)
+  private PasswordEncoder passwordEncoder =
+      PasswordEncoderFactories.createDelegatingPasswordEncoder();
+
   @TableId(type = IdType.ASSIGN_ID)
   @ApiModelProperty(value = "USER_ID", required = false)
   private String userId;
@@ -35,6 +46,7 @@ public class User {
   private String loginName;
 
   @ApiModelProperty(value = "密码", required = false)
+  @Setter(AccessLevel.PRIVATE)
   private String pwd;
 
   @ApiModelProperty(value = "录入码", required = false)
@@ -66,7 +78,79 @@ public class User {
   @ApiModelProperty(value = "修改时间", required = false)
   private Date modifyTime;
 
-  @ApiModelProperty(value = "拥有的角色", required = false)
+  @JsonIgnore
   @TableField(exist = false)
-  Set<RoleOwnedByUser> rolesOwned;
+  @ApiModelProperty(value = "拥有的角色", required = false)
+  List<RoleOwnedByUser> rolesOwned;
+
+  /**
+   * 拥有的角色Id列表.
+   *
+   * @return
+   */
+  @ApiModelProperty(value = "拥有的角色Id列表", required = false)
+  public List<String> getRoleIdListOwned() {
+    return this.rolesOwned == null
+        ? null
+        : this.rolesOwned.stream().map(t -> t.getRoleId()).collect(Collectors.toList());
+  }
+
+  /**
+   * 设置拥有的角色Id列表.
+   *
+   * @param roleIdList 拥有的角色Id列表
+   */
+  @ApiModelProperty(value = "拥有的角色Id列表")
+  public void setRoleIdListOwned(List<String> roleIdList) {
+    if (roleIdList == null) {
+      return;
+    }
+
+    var newRolesOwned =
+        roleIdList.stream()
+            .map(
+                roleId -> RoleOwnedByUser.builder().userId(this.getUserId()).roleId(roleId).build())
+            .collect(Collectors.toList());
+
+    this.setRolesOwned(newRolesOwned);
+  }
+
+  /**
+   * 设置主键.
+   *
+   * @param userId 主键
+   */
+  public void setUserId(String userId) {
+    this.userId = userId;
+
+    if (this.rolesOwned != null) {
+      var newRolesOwned =
+          this.rolesOwned.stream()
+              .map(
+                  t ->
+                      RoleOwnedByUser.builder()
+                          .userRoleId(t.getUserRoleId())
+                          .userId(userId)
+                          .roleId(t.getRoleId())
+                          .build())
+              .collect(Collectors.toList());
+
+      this.setRolesOwned(newRolesOwned);
+    }
+  }
+
+  /**
+   * 重设密码。将 newPwd 转换为 Hash 值存入 pwd 中.
+   *
+   * @param newPwd 新密码明文
+   */
+  public void resetPwd(String newPwd) {
+    String hashPwd = passwordEncoder.encode(newPwd);
+    setPwd(hashPwd);
+  }
+
+  /** 重置密码. */
+  public void resetToDefaultPwd() {
+    this.resetPwd("0");
+  }
 }

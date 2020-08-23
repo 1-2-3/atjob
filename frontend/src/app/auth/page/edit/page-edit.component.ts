@@ -1,7 +1,7 @@
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NzMessageService, NzModalRef } from 'ng-zorro-antd';
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { map } from 'rxjs/operators';
+import { map, tap } from 'rxjs/operators';
 import { zip, of } from 'rxjs';
 import { TreeUtil } from 'src/app/shared/utils/tree-util';
 import { CascaderUtil } from 'src/app/shared/utils/cascader-util';
@@ -57,7 +57,7 @@ export class PageEditComponent implements OnInit {
    */
   private loadData(): void {
     const parentOptionsLoader = this.pageService.getPageTree().pipe(
-      map((r: ApiResult) => {
+      tap((r: ApiResult) => {
         if (r.success) {
           this.parentOptions = r.data;
         }
@@ -69,7 +69,7 @@ export class PageEditComponent implements OnInit {
     } else if (this.opts.operType === 'edit') {
       // 加载表单数据
       const formDataLoader = this.pageService.getPageById(this.opts.editId).pipe(
-        map((r: ApiResult) => {
+        tap((r: ApiResult) => {
           if (r.success && r.data) {
             this.formGroup.patchValue(r.data);
           }

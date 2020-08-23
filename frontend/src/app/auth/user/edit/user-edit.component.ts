@@ -1,17 +1,19 @@
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NzMessageService, NzModalRef } from 'ng-zorro-antd';
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { DeptService } from '../dept.service';
+import { Component, OnInit, ViewChild, Input } from '@angular/core';
 import { map, tap } from 'rxjs/operators';
 import { zip, of } from 'rxjs';
 import { TreeUtil } from 'src/app/shared/utils/tree-util';
 import { CascaderUtil } from 'src/app/shared/utils/cascader-util';
 import { ApiResult } from 'src/app/shared/types/api-result';
+import { UserService } from '../user.service';
+import { DeptService } from '../../dept/dept.service';
+import { RoleService } from '../../role/role.service';
 
 @Component({
-  templateUrl: './dept-edit.component.html',
+  templateUrl: './user-edit.component.html',
 })
-export class DeptEditComponent implements OnInit {
+export class UserEditComponent implements OnInit {
   opts: {
     operType: 'add' | 'edit'; // 'add' 'edit'
     editId: string; // 要进行编辑的数据的Id
@@ -20,13 +22,16 @@ export class DeptEditComponent implements OnInit {
   formGroup: FormGroup; // 表单对象
   loading = false; // 是否正在加载数据
   submitting = false; // 是否正在提交中
-  parentOptions = []; // “父节点”数据源
+  deptOptions = []; // 所属部门下拉数据源
+  roleOptions = []; // 角色下拉数据源
 
   constructor(
     private formBuilder: FormBuilder,
     private modal: NzModalRef,
     private msg: NzMessageService,
+    private userService: UserService,
     private deptService: DeptService,
+    private roleService: RoleService,
   ) {}
 
   /**
@@ -34,15 +39,19 @@ export class DeptEditComponent implements OnInit {
    */
   ngOnInit(): void {
     this.formGroup = this.formBuilder.group({
-      deptId: ['', []], // 科室Id
-      name: ['', [Validators.required]], // 部门名称
-      code: ['', [Validators.required]], // 部门编码
-      parent: [], // 父节ID
-      parentCascadeValue: [[]], // 父节ID 级联下拉框Value
-      inputCode: [], // 录入码
+      userId: ['', []],
+      name: ['', [Validators.required]],
+      code: ['', [Validators.required]],
+      deptId: [],
+      deptCascadeValue: [null, [Validators.required]],
+      deptName: ['', []],
+      loginName: ['', [Validators.required]],
+      inputCode: [],
+      phone: [],
       description: [], // 描述
-      indexField: [], // 排序
-      isStop: [], // 是否停用
+      isStop: [false], // 是否停用
+      indexField: [],
+      roleIdListOwned: [],
     });
 
     this.loadData();
@@ -52,20 +61,27 @@ export class DeptEditComponent implements OnInit {
    * 加载表单数据和控件数据源
    */
   private loadData(): void {
-    // 加载上级部门下拉框
-    const parentOptionsLoader = this.deptService.getDeptTree().pipe(
+    const deptOptionsLoader = this.deptService.getDeptTree().pipe(
       tap((r: ApiResult) => {
         if (r.success) {
-          this.parentOptions = r.data;
+          this.deptOptions = r.data;
+        }
+      }),
+    );
+
+    const roleOptionsLoader = this.roleService.getRoleList().pipe(
+      tap((r: ApiResult) => {
+        if (r.success) {
+          this.roleOptions = r.data;
         }
       }),
     );
 
     if (this.opts.operType === 'add') {
-      parentOptionsLoader.subscribe();
+      zip(roleOptionsLoader, deptOptionsLoader).subscribe();
     } else if (this.opts.operType === 'edit') {
       // 加载表单数据
-      const formDataLoader = this.deptService.getDeptById(this.opts.editId).pipe(
+      const formDataLoader = this.userService.getUserById(this.opts.editId).pipe(
         tap((r: ApiResult) => {
           if (r.success && r.data) {
             this.formGroup.patchValue(r.data);
@@ -73,15 +89,9 @@ export class DeptEditComponent implements OnInit {
         }),
       );
 
-      zip(parentOptionsLoader, formDataLoader).subscribe(() => {
+      zip(roleOptionsLoader, deptOptionsLoader, formDataLoader).subscribe(() => {
         // 生成级联下拉框要求的Id数组
-        CascaderUtil.propValueToCascaderValue(
-          this.formGroup,
-          this.parentOptions,
-          'parent',
-          'parentCascadeValue',
-          'deptId',
-        );
+        CascaderUtil.propValueToCascaderValue(this.formGroup, this.deptOptions, 'deptId', 'deptCascadeValue', 'deptId');
       });
     } else {
       const neverReachHere: never = this.opts.operType;
@@ -100,11 +110,10 @@ export class DeptEditComponent implements OnInit {
     }
 
     if (this.formGroup.valid) {
-      // 级联下拉框的值为数组，提交前取数组最后一个元素
-      CascaderUtil.cascaderValueToPropValue(this.formGroup, 'parent', 'parentCascadeValue');
+      CascaderUtil.cascaderValueToPropValue(this.formGroup, 'deptId', 'deptCascadeValue');
 
       this.submitting = true;
-      this.deptService.saveDept(this.formGroup.value).subscribe((r: ApiResult) => {
+      this.userService.saveUser(this.formGroup.value).subscribe((r: ApiResult) => {
         this.submitting = false;
 
         // 提交完成关闭子窗口
@@ -126,5 +135,12 @@ export class DeptEditComponent implements OnInit {
       type: 'cancel',
       data: null,
     });
+  }
+
+  deptSelectionChange(selectedCascadeValues) {
+    if (selectedCascadeValues.length) {
+      const selectedDept = selectedCascadeValues[selectedCascadeValues.length - 1];
+      this.formGroup.patchValue({ deptName: selectedDept.name });
+    }
   }
 }

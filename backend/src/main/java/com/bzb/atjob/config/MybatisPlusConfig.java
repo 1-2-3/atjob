@@ -10,12 +10,12 @@ import org.springframework.context.annotation.Configuration;
 @MapperScan("com.bzb.atjob.app")
 public class MybatisPlusConfig {
 
-    /**
-     * 分页插件
-     */
-    @Bean
-    public PaginationInterceptor paginationInterceptor() {
-        // 开启 count 的 join 优化,只针对 left join !!!
-        return new PaginationInterceptor().setCountSqlParser(new JsqlParserCountOptimize(true)).setLimit(-1);
-    }
+  /** 分页插件. */
+  @Bean
+  public PaginationInterceptor paginationInterceptor() {
+    // 开启 count 的 join 优化,只针对 left join !!!
+    return new PaginationInterceptor()
+        .setCountSqlParser(new JsqlParserCountOptimize(true))
+        .setLimit(-1);
+  }
 }
