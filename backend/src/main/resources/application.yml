@@ -56,9 +56,9 @@ spring:
 server:
   port: 9003
   tomcat:
-    max-threads: 800
     uri-encoding: UTF-8
-
+    threads:
+      max: 800
 # mybatis-plus:
 #   global-config:
 #     db-config:

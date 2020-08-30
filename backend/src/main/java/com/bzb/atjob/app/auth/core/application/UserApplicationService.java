@@ -3,15 +3,16 @@ package com.bzb.atjob.app.auth.core.application;
 import com.bzb.atjob.app.auth.core.entity.User;
 import com.bzb.atjob.app.auth.core.repository.UserRepository;
 import com.bzb.atjob.common.vo.PaggingResult;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 /** 用户应用服务. */
 @Service
 @Transactional
+@RequiredArgsConstructor
 public class UserApplicationService {
-  @Autowired UserRepository userRepository;
+  private final UserRepository userRepository;
 
   /**
    * 获取用户列表.

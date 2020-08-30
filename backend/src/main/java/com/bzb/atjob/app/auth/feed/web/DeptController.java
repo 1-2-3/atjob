@@ -9,19 +9,20 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import java.util.List;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+@RequiredArgsConstructor
 @RestController
 @RequestMapping({"/api/v1/dept"})
 @Api(value = "/api/v1/dept", tags = "部门")
 public class DeptController extends BaseController {
 
-  @Autowired DeptApplicationService deptService;
+  private final DeptApplicationService deptService;
 
   /**
    * 获取部门列表.

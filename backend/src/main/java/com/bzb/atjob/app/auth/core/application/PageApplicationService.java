@@ -3,17 +3,16 @@ package com.bzb.atjob.app.auth.core.application;
 import com.bzb.atjob.app.auth.core.entity.Page;
 import com.bzb.atjob.app.auth.core.repository.PageRepository;
 import com.bzb.atjob.common.vo.PaggingResult;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 /** 页面管理应用服务. */
 @Service
 @Transactional
+@RequiredArgsConstructor
 public class PageApplicationService {
-  @Autowired PageRepository pageRepository;
-
-  public PageApplicationService() {}
+  private final PageRepository pageRepository;
 
   /**
    * 获取页面列表.

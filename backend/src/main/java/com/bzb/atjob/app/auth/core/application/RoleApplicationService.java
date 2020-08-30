@@ -3,16 +3,17 @@ package com.bzb.atjob.app.auth.core.application;
 import com.bzb.atjob.app.auth.core.entity.Role;
 import com.bzb.atjob.app.auth.core.repository.RoleRepository;
 import com.bzb.atjob.common.vo.PaggingResult;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 /** 角色管理应用服务. */
 @Service
-@Transactional
+@Transactional()
+@RequiredArgsConstructor
 public class RoleApplicationService {
 
-  @Autowired RoleRepository roleRepository;
+  private final RoleRepository roleRepository;
 
   /**
    * 获取角色列表.

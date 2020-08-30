@@ -11,15 +11,16 @@ import com.bzb.atjob.common.util.MybatisUtil;
 import com.bzb.atjob.common.vo.PaggingResult;
 import java.util.List;
 import javax.validation.ValidationException;
+import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
+@RequiredArgsConstructor
 public class UserRepository {
 
-  @Autowired private UserMapper userMapper;
-  @Autowired private RoleOwnedByUserMapper roleOwnedByUserMapper;
+  private final UserMapper userMapper;
+  private final RoleOwnedByUserMapper roleOwnedByUserMapper;
 
   /**
    * 获取匹配主键的用户.
@@ -59,6 +60,25 @@ public class UserRepository {
     } else {
       userMapper.updateById(entity);
       saveRolesOwned(entity.getUserId(), entity.getRolesOwned());
+    }
+  }
+
+  /** 获取匹配登录名的系统用户。找不到时返回 null. */
+  public User getByLoginName(String loginName) {
+    List<User> list =
+        userMapper.selectList(new QueryWrapper<User>().lambda().eq(User::getLoginName, loginName));
+
+    if (list.size() > 0) {
+      User entity = list.get(0);
+      var rolesOwend =
+          roleOwnedByUserMapper.selectList(
+              new LambdaQueryWrapper<RoleOwnedByUser>()
+                  .eq(RoleOwnedByUser::getUserId, entity.getUserId()));
+      entity.setRolesOwned(rolesOwend);
+
+      return entity;
+    } else {
+      return null;
     }
   }
 

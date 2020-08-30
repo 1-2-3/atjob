@@ -14,17 +14,15 @@ import java.util.stream.Collectors;
 import lombok.AccessLevel;
 import lombok.Data;
 import lombok.Setter;
-import org.springframework.security.crypto.factory.PasswordEncoderFactories;
-import org.springframework.security.crypto.password.PasswordEncoder;
 
 @ApiModel(description = "系统用户")
 @Data
 @TableName(value = "AUTH_USER")
 public class User {
-  @JsonIgnore
-  @TableField(exist = false)
-  private PasswordEncoder passwordEncoder =
-      PasswordEncoderFactories.createDelegatingPasswordEncoder();
+  // @JsonIgnore
+  // @TableField(exist = false)
+  // private PasswordEncoder passwordEncoder =
+  //     PasswordEncoderFactories.createDelegatingPasswordEncoder();
 
   @TableId(type = IdType.ASSIGN_ID)
   @ApiModelProperty(value = "USER_ID", required = false)
@@ -145,8 +143,8 @@ public class User {
    * @param newPwd 新密码明文
    */
   public void resetPwd(String newPwd) {
-    String hashPwd = passwordEncoder.encode(newPwd);
-    setPwd(hashPwd);
+    // String hashPwd = passwordEncoder.encode(newPwd);
+    // setPwd(hashPwd);
   }
 
   /** 重置密码. */

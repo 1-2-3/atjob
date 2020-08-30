@@ -9,19 +9,20 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import java.util.List;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+@RequiredArgsConstructor
 @RestController
 @RequestMapping({"/api/v1/user"})
 @Api(value = "/api/v1/user", tags = "用户")
 public class UserController extends BaseController {
 
-  @Autowired UserApplicationService userService;
+  private final UserApplicationService userService;
 
   /**
    * 获取用户列表.

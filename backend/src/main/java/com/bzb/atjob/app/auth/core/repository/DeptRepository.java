@@ -7,14 +7,15 @@ import com.bzb.atjob.app.auth.core.mapper.DeptMapper;
 import com.bzb.atjob.common.util.MybatisUtil;
 import com.bzb.atjob.common.vo.PaggingResult;
 import javax.validation.ValidationException;
+import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
+@RequiredArgsConstructor
 public class DeptRepository {
 
-  @Autowired private DeptMapper deptMapper;
+  private final DeptMapper deptMapper;
 
   /**
    * 获取匹配主键的部门.
