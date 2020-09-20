@@ -1,0 +1,31 @@
+<div class="login-container">
+  <form nz-form [formGroup]="formGroup" (ngSubmit)="submit()">
+    <div nz-row>
+      <div nz-col nzSpan="24">
+        <nz-form-item nsFormItem>
+          <nz-form-control nsFormControl nzSpan="24">
+            <nz-input-group nzPrefixIcon="user">
+              <input nz-input placeholder="用户名：admin" formControlName="username" />
+            </nz-input-group>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+    </div>
+    <div nz-row>
+      <div nz-col nzSpan="24">
+        <nz-form-item nsFormItem>
+          <nz-form-control nsFormControl nzSpan="24">
+            <nz-input-group nzPrefixIcon="lock">
+              <input nz-input placeholder="密码：0" type="password" formControlName="pwd" />
+            </nz-input-group>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+    </div>
+    <div nz-row>
+      <div nz-col nzSpan="24" class="footer">
+        <button nz-button [nzLoading]="submitting" [nzType]="'primary'">登录</button>
+      </div>
+    </div>
+  </form>
+</div>

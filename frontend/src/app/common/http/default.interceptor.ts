@@ -13,6 +13,7 @@ import { Router } from '@angular/router';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
 import { Observable, of, throwError } from 'rxjs';
 import { catchError, mergeMap } from 'rxjs/operators';
+import { AuthService } from 'src/app/shared/auth/auth.service';
 
 const CODEMESSAGE = {
   200: '服务器成功返回请求的数据。',
@@ -37,7 +38,7 @@ const CODEMESSAGE = {
  */
 @Injectable()
 export class DefaultInterceptor implements HttpInterceptor {
-  constructor(private injector: Injector) {}
+  constructor(private injector: Injector, private authService: AuthService) {}
 
   private get notification(): NzNotificationService {
     return this.injector.get(NzNotificationService);
@@ -88,8 +89,12 @@ export class DefaultInterceptor implements HttpInterceptor {
       case 403:
       case 404:
       case 500:
-        this.goTo(`/exception/${ev.status}`);
-        break;
+        this.notification.error('', `应用服务异常`);
+        if (ev instanceof HttpResponse) {
+          const body: any = ev.body;
+          console.error(`应用服务异常` + body || '');
+        }
+        return of(ev);
       default:
         if (ev instanceof HttpErrorResponse) {
           console.warn('未可知错误，大部分是由于后端不支持CORS或无效配置引起', ev);
@@ -105,7 +110,14 @@ export class DefaultInterceptor implements HttpInterceptor {
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     const url = req.url;
-    const newReq = req.clone({ url });
+
+    // 带入 token
+    const setHeaders = {
+      Authorization: this.authService.token || '',
+    };
+
+    const newReq = req.clone({ url, setHeaders });
+
     return next.handle(newReq).pipe(
       mergeMap((event: any) => {
         // 允许统一对请求错误处理

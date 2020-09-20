@@ -1,11 +1,64 @@
 package com.bzb.atjob.config.auth;
 
+import com.bzb.atjob.common.auth.JwtFilter;
+import java.util.LinkedHashMap;
+import javax.servlet.Filter;
+import org.apache.shiro.mgt.SecurityManager;
+import org.apache.shiro.mgt.SessionsSecurityManager;
+import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
+import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
 import org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class GlobalShiroConfig {
+  /** 创建 ShiroFilter. */
+  @Bean
+  public ShiroFilterFactoryBean shiroFilterFactoryBean(SecurityManager securityManager) {
+    ShiroFilterFactoryBean shiroFilterFactoryBean = new ShiroFilterFactoryBean();
+    // 设置 securityManager
+    shiroFilterFactoryBean.setSecurityManager(securityManager);
+
+    // 在 Shiro过滤器链上加入 JWTFilter
+    LinkedHashMap<String, Filter> filters = new LinkedHashMap<>();
+    filters.put("jwt", new JwtFilter());
+    shiroFilterFactoryBean.setFilters(filters);
+
+    LinkedHashMap<String, String> filterChainDefinitionMap = new LinkedHashMap<>();
+    // 所有请求都要经过 jwt过滤器
+    filterChainDefinitionMap.put("/**", "jwt");
+
+    shiroFilterFactoryBean.setFilterChainDefinitionMap(filterChainDefinitionMap);
+    return shiroFilterFactoryBean;
+  }
+
+  /**
+   * 创建 SecurityManager.
+   *
+   * <p>注意：返回值必须是 SessionsSecurityManager 才能顶替 ShiroAutoConfiguration
+   * 中被标记为 @ConditionalOnMissingBean 的同名配置。否则会报 `The bean 'securityManager', defined in class path
+   * resource [org/apache/shiro/spring/boot/autoconfigure /ShiroAutoConfiguration.class], could not
+   * be registered.` 的异常。
+   */
+  @Bean
+  public SessionsSecurityManager securityManager() {
+    DefaultWebSecurityManager securityManager = new DefaultWebSecurityManager();
+    // 配置 SecurityManager，并注入 shiroRealm
+    securityManager.setRealm(shiroRealm());
+    return securityManager;
+  }
+
+  /**
+   * 创建自定义实现的 Realm.
+   *
+   * @return
+   */
+  @Bean
+  public ShiroRealm shiroRealm() {
+    // 配置 Realm
+    return new ShiroRealm();
+  }
 
   /**
    * 强制使用 CGlib.

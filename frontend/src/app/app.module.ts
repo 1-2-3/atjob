@@ -17,6 +17,7 @@ import { NzConfig, NZ_CONFIG } from 'ng-zorro-antd/core/config';
 import { DefaultInterceptor } from './common/http/default.interceptor';
 import { SharedModule } from './shared/shared.module';
 import { AlainConfig, ALAIN_CONFIG } from '@delon/util';
+import { LayoutModule } from './layout/layout.module';
 
 const ngZorroConfig: NzConfig = {
   // 全局验证提示信息
@@ -81,6 +82,7 @@ registerLocaleData(zh);
     HttpClientModule,
     BrowserAnimationsModule,
     SharedModule,
+    LayoutModule,
   ],
   providers: [
     { provide: NZ_I18N, useValue: zh_CN },

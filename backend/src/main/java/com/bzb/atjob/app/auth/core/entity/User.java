@@ -14,15 +14,18 @@ import java.util.stream.Collectors;
 import lombok.AccessLevel;
 import lombok.Data;
 import lombok.Setter;
+import org.apache.commons.lang3.StringUtils;
+import org.springframework.security.crypto.factory.PasswordEncoderFactories;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 @ApiModel(description = "系统用户")
 @Data
 @TableName(value = "AUTH_USER")
 public class User {
-  // @JsonIgnore
-  // @TableField(exist = false)
-  // private PasswordEncoder passwordEncoder =
-  //     PasswordEncoderFactories.createDelegatingPasswordEncoder();
+  @JsonIgnore
+  @TableField(exist = false)
+  private PasswordEncoder passwordEncoder =
+      PasswordEncoderFactories.createDelegatingPasswordEncoder();
 
   @TableId(type = IdType.ASSIGN_ID)
   @ApiModelProperty(value = "USER_ID", required = false)
@@ -143,12 +146,26 @@ public class User {
    * @param newPwd 新密码明文
    */
   public void resetPwd(String newPwd) {
-    // String hashPwd = passwordEncoder.encode(newPwd);
-    // setPwd(hashPwd);
+    String hashPwd = passwordEncoder.encode(newPwd);
+    setPwd(hashPwd);
   }
 
   /** 重置密码. */
   public void resetToDefaultPwd() {
     this.resetPwd("0");
+  }
+
+  /**
+   * 验证密码.
+   *
+   * @param plainPwd 密码原文
+   * @return
+   */
+  public boolean verifyPwd(String plainPwd) {
+    if (StringUtils.isBlank(plainPwd)) {
+      return false;
+    }
+
+    return passwordEncoder.matches(plainPwd, this.getPwd());
   }
 }
