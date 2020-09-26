@@ -45,6 +45,13 @@ public class UserController extends BaseController {
     return ApiResult.successDataTotal(result.getData(), result.getTotal());
   }
 
+  @ApiOperation(value = "获取用户拥有的页面权限列表", notes = "")
+  @RequestMapping(method = RequestMethod.GET, path = "getPagesOwnedByUser")
+  public ApiResult<List<com.bzb.atjob.app.auth.core.entity.Page>> getPagesOwnedByUser(
+      @ApiParam(value = "登录名", required = true) @RequestParam(required = true) String loginName) {
+    return ApiResult.successData(this.userService.getPagesOwnedByUser(loginName));
+  }
+
   /**
    * 获取匹配主键的用户.
    *
@@ -55,6 +62,18 @@ public class UserController extends BaseController {
   @RequestMapping(method = RequestMethod.GET, path = "getUserById")
   public ApiResult<User> getUserById(@RequestParam(required = true) String userId) {
     return ApiResult.successData(userService.getUserById(userId));
+  }
+
+  /**
+   * 获取匹配登录名的用户.
+   *
+   * @param loginName 登录名
+   * @return
+   */
+  @ApiOperation(value = "获取匹配登录名的用户")
+  @RequestMapping(method = RequestMethod.GET, path = "getUserByLoginName")
+  public ApiResult<User> getUserByLoginName(@RequestParam(required = true) String loginName) {
+    return ApiResult.successData(userService.getUserByLoginName(loginName));
   }
 
   /**

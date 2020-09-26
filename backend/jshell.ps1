@@ -1,5 +1,5 @@
 #
-# 输出项目 classpath 并启动 jshell
+# 在Windows中输出项目 classpath 并启动 jshell
 #
 
 # 将项目依赖的库输出到 classpath.txt 中

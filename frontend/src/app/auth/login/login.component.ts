@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { NzMessageService } from 'ng-zorro-antd';
 import { AuthService } from 'src/app/shared/auth/auth.service';
 import { ApiResult } from 'src/app/shared/types/api-result';
+import { UserService } from '../user/user.service';
 
 @Component({
   styleUrls: ['login.component.less'],
@@ -13,6 +14,7 @@ export class LoginComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private authService: AuthService,
+    private userService: UserService,
     private msg: NzMessageService,
     private router: Router,
   ) {}
@@ -47,7 +49,12 @@ export class LoginComponent implements OnInit {
           if (r.success) {
             if (r.data) {
               this.authService.token = r.data;
-              this.router.navigateByUrl('/');
+              this.userService.getUserByLoginName(this.formGroup.get('username').value).subscribe((res: ApiResult) => {
+                if (res.success) {
+                  this.authService.userInfo = res.data;
+                  this.router.navigateByUrl('/');
+                }
+              });
             } else {
               this.msg.error('用户名或密码不正确');
             }

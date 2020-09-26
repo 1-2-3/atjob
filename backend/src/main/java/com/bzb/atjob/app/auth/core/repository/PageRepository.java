@@ -5,6 +5,7 @@ import com.bzb.atjob.app.auth.core.entity.Page;
 import com.bzb.atjob.app.auth.core.mapper.PageMapper;
 import com.bzb.atjob.common.util.MybatisUtil;
 import com.bzb.atjob.common.vo.PaggingResult;
+import java.util.List;
 import javax.validation.ValidationException;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
@@ -86,6 +87,16 @@ public class PageRepository {
     pageMapper.selectPage(page, wrapper);
 
     return new PaggingResult<Page>(page.getRecords(), page.getSize());
+  }
+
+  /** 获取全部可见的页面权限列表. */
+  public List<Page> getAvailableAll() {
+    return pageMapper.selectList(
+        new QueryWrapper<Page>()
+            .lambda()
+            .eq(Page::getIsStop, false)
+            .eq(Page::getIsHide, false)
+            .orderByAsc(Page::getIndexField, Page::getName));
   }
 
   /**

@@ -13,6 +13,20 @@ export class AuthService {
   }
 
   /**
+   * 当前登录用户信息
+   */
+  get userInfo(): any {
+    return JSON.parse(sessionStorage.getItem('app-user-info')) || {};
+  }
+
+  /**
+   * 当前登录用户信息
+   */
+  set userInfo(value: any) {
+    sessionStorage.setItem('app-user-info', JSON.stringify(value || {}));
+  }
+
+  /**
    * 用户登录后取得的 token
    */
   get token(): string {

@@ -13,6 +13,14 @@ export class UserService {
     });
   }
 
+  getUserByLoginName(loginName: string) {
+    return this.http.get(`/api/v1/user/getUserByLoginName`, {
+      params: {
+        loginName,
+      },
+    });
+  }
+
   saveUser(formData: any) {
     return this.http.post(`/api/v1/user/saveUser`, formData);
   }

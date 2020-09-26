@@ -8,13 +8,20 @@
     [nzTrigger]="null"
   >
     <div class="sidebar-logo">
-      <a href="https://ng.ant.design/" target="_blank">
+      <a href="https://github.com/1-2-3/atjob" target="_blank">
         <img src="https://ng.ant.design/assets/img/logo.svg" alt="logo" />
-        <h1>Ant Design Of Angular</h1>
+        <h1>atjob</h1>
       </a>
     </div>
     <ul nz-menu nzTheme="dark" nzMode="inline" [nzInlineCollapsed]="isCollapsed">
-      <li nz-submenu nzOpen nzTitle="Dashboard" nzIcon="dashboard">
+      <li *ngFor="let nodeItem of menuTree" nz-submenu nzOpen [nzTitle]="nodeItem.name" [nzIcon]="nodeItem.icon">
+        <ul>
+          <li *ngFor="let leftItem of nodeItem.children" nz-menu-item nzMatchRouter>
+            <a [routerLink]="leftItem.path">{{ leftItem.name }}</a>
+          </li>
+        </ul>
+      </li>
+      <!-- <li nz-submenu nzOpen nzTitle="Dashboard" nzIcon="dashboard">
         <ul>
           <li nz-menu-item nzMatchRouter>
             <a routerLink="/welcome">Welcome</a>
@@ -33,7 +40,7 @@
             <a>Basic Form</a>
           </li>
         </ul>
-      </li>
+      </li> -->
     </ul>
   </nz-sider>
   <nz-layout>
