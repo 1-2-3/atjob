@@ -4,8 +4,7 @@ import { AntDefaultComponent } from './layout/ant-default/ant-default.component'
 import { FullscreenComponent } from './layout/fullscreen/fullscreen.component';
 
 const routes: Routes = [
-  { path: '', pathMatch: 'full', redirectTo: '/auth/role' },
-  { path: 'welcome', loadChildren: () => import('./pages/welcome/welcome.module').then((m) => m.WelcomeModule) },
+  { path: '', pathMatch: 'full', redirectTo: '/auth/page' },
   {
     path: 'auth',
     component: AntDefaultComponent,
