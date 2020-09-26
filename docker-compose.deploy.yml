@@ -69,6 +69,16 @@ services:
     networks:
       - default
 
+  rabbitmq:
+    image: rabbitmq:3-management
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    networks:
+      default:
+        aliases:
+          - rabbitmq
+
 volumes:
   db-data:
   maven-repo:
