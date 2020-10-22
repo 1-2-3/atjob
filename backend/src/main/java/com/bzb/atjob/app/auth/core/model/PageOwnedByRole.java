@@ -1,4 +1,4 @@
-package com.bzb.atjob.app.auth.core.entity;
+package com.bzb.atjob.app.auth.core.model;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
@@ -7,17 +7,17 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Builder;
 import lombok.Value;
 
-/** 被用户拥有的角色. */
+/** 被角色拥有的页面. */
 @Value
 @Builder
-@TableName(value = "AUTH_USER_ROLE")
-public class RoleOwnedByUser {
+@TableName(value = "AUTH_ROLE_PAGE")
+public class PageOwnedByRole {
   @ApiModelProperty(value = "主键", required = false)
   @TableId(type = IdType.ASSIGN_ID)
-  private String userRoleId;
+  private String rolePageId;
 
-  @ApiModelProperty(value = "用户Id", required = false)
-  private String userId;
+  @ApiModelProperty(value = "页面Id", required = false)
+  private String pageId;
 
   @ApiModelProperty(value = "角色Id", required = false)
   private String roleId;

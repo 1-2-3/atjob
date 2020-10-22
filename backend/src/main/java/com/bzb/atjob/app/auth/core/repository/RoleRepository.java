@@ -3,10 +3,10 @@ package com.bzb.atjob.app.auth.core.repository;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.bzb.atjob.app.auth.core.entity.PageOwnedByRole;
-import com.bzb.atjob.app.auth.core.entity.Role;
 import com.bzb.atjob.app.auth.core.mapper.PageOwnedByRoleMapper;
 import com.bzb.atjob.app.auth.core.mapper.RoleMapper;
+import com.bzb.atjob.app.auth.core.model.PageOwnedByRole;
+import com.bzb.atjob.app.auth.core.model.Role;
 import com.bzb.atjob.common.util.MybatisUtil;
 import com.bzb.atjob.common.vo.PaggingResult;
 import java.util.List;
@@ -75,6 +75,12 @@ public class RoleRepository {
     roleMapper.deleteById(id);
     pageOwnedByRoleMapper.delete(
         new LambdaQueryWrapper<PageOwnedByRole>().eq(PageOwnedByRole::getRoleId, id));
+  }
+
+  /** 删除所有角色对 pageId 的关联. */
+  public void deleteAllOwnedPages(String pageId) {
+    pageOwnedByRoleMapper.delete(
+        new LambdaQueryWrapper<PageOwnedByRole>().eq(PageOwnedByRole::getPageId, pageId));
   }
 
   /**

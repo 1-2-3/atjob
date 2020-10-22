@@ -1,7 +1,7 @@
 package com.bzb.atjob.app.auth.feed.web;
 
 import com.bzb.atjob.app.auth.core.application.UserApplicationService;
-import com.bzb.atjob.app.auth.core.entity.User;
+import com.bzb.atjob.app.auth.core.model.User;
 import com.bzb.atjob.common.basetypes.BaseController;
 import com.bzb.atjob.common.vo.ApiResult;
 import com.bzb.atjob.common.vo.PaggingResult;
@@ -47,7 +47,7 @@ public class UserController extends BaseController {
 
   @ApiOperation(value = "获取用户拥有的页面权限列表", notes = "")
   @RequestMapping(method = RequestMethod.GET, path = "getPagesOwnedByUser")
-  public ApiResult<List<com.bzb.atjob.app.auth.core.entity.Page>> getPagesOwnedByUser(
+  public ApiResult<List<com.bzb.atjob.app.auth.core.model.Page>> getPagesOwnedByUser(
       @ApiParam(value = "登录名", required = true) @RequestParam(required = true) String loginName) {
     return ApiResult.successData(this.userService.getPagesOwnedByUser(loginName));
   }

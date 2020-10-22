@@ -1,8 +1,10 @@
 package com.bzb.atjob.app.auth.core.repository;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.bzb.atjob.app.auth.core.entity.Page;
 import com.bzb.atjob.app.auth.core.mapper.PageMapper;
+import com.bzb.atjob.app.auth.core.model.Page;
+import com.bzb.atjob.app.auth.core.model.PageEvent.PageDeleted;
+import com.bzb.atjob.common.events.DomainEvents;
 import com.bzb.atjob.common.util.MybatisUtil;
 import com.bzb.atjob.common.vo.PaggingResult;
 import java.util.List;
@@ -13,9 +15,11 @@ import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
+@SuppressWarnings("unchecked")
 public class PageRepository {
 
   private final PageMapper pageMapper;
+  private final DomainEvents domainEvents;
 
   /**
    * 获取匹配主键的页面.
@@ -57,6 +61,7 @@ public class PageRepository {
     }
 
     pageMapper.deleteById(id);
+    domainEvents.publish(PageDeleted.now(id));
   }
 
   /**

@@ -1,6 +1,6 @@
 package com.bzb.atjob.app.auth.core.application;
 
-import com.bzb.atjob.app.auth.core.entity.Dept;
+import com.bzb.atjob.app.auth.core.model.Dept;
 import com.bzb.atjob.app.auth.core.repository.DeptRepository;
 import com.bzb.atjob.common.vo.PaggingResult;
 import lombok.RequiredArgsConstructor;

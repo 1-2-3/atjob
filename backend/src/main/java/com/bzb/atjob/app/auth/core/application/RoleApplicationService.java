@@ -1,9 +1,11 @@
 package com.bzb.atjob.app.auth.core.application;
 
-import com.bzb.atjob.app.auth.core.entity.Role;
+import com.bzb.atjob.app.auth.core.model.PageEvent.PageDeleted;
+import com.bzb.atjob.app.auth.core.model.Role;
 import com.bzb.atjob.app.auth.core.repository.RoleRepository;
 import com.bzb.atjob.common.vo.PaggingResult;
 import lombok.RequiredArgsConstructor;
+import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -50,5 +52,11 @@ public class RoleApplicationService {
   /** 删除角色. */
   public void deleteRole(String roleId) {
     roleRepository.delete(roleId);
+  }
+
+  /** 响应页面已删除领域事件. */
+  @EventListener
+  void handlePageDeleted(PageDeleted pageDeleted) {
+    this.roleRepository.deleteAllOwnedPages(pageDeleted.getPageId());
   }
 }

@@ -1,6 +1,6 @@
 package com.bzb.atjob.app.auth.core.application;
 
-import com.bzb.atjob.app.auth.core.entity.User;
+import com.bzb.atjob.app.auth.core.model.User;
 import com.bzb.atjob.app.auth.core.repository.UserRepository;
 import com.bzb.atjob.common.auth.JwtUtil;
 import lombok.RequiredArgsConstructor;

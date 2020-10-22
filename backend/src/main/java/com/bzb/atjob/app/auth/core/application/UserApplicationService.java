@@ -1,7 +1,7 @@
 package com.bzb.atjob.app.auth.core.application;
 
-import com.bzb.atjob.app.auth.core.entity.Role;
-import com.bzb.atjob.app.auth.core.entity.User;
+import com.bzb.atjob.app.auth.core.model.Role;
+import com.bzb.atjob.app.auth.core.model.User;
 import com.bzb.atjob.app.auth.core.repository.PageRepository;
 import com.bzb.atjob.app.auth.core.repository.RoleRepository;
 import com.bzb.atjob.app.auth.core.repository.UserRepository;
@@ -58,7 +58,7 @@ public class UserApplicationService {
   }
 
   /** 获取用户拥有的页面权限列表. */
-  public List<com.bzb.atjob.app.auth.core.entity.Page> getPagesOwnedByUser(String loginName) {
+  public List<com.bzb.atjob.app.auth.core.model.Page> getPagesOwnedByUser(String loginName) {
     User user = userRepository.getByLoginName(loginName);
 
     if (user == null) {
@@ -73,7 +73,7 @@ public class UserApplicationService {
       pageIdsOwned.addAll(role.getPageIdListOwned());
     }
 
-    List<com.bzb.atjob.app.auth.core.entity.Page> allPages = pageRepository.getAvailableAll();
+    List<com.bzb.atjob.app.auth.core.model.Page> allPages = pageRepository.getAvailableAll();
 
     // 由于 pageIdsOwned 只包含叶子节点，还要附加上父节点
     Set<String> ownedNodePageIds =

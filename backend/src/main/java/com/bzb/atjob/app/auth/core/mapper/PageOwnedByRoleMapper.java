@@ -1,8 +1,6 @@
 package com.bzb.atjob.app.auth.core.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.bzb.atjob.app.auth.core.entity.PageOwnedByRole;
+import com.bzb.atjob.app.auth.core.model.PageOwnedByRole;
 
-public interface PageOwnedByRoleMapper extends BaseMapper<PageOwnedByRole> {
-
-}
+public interface PageOwnedByRoleMapper extends BaseMapper<PageOwnedByRole> {}

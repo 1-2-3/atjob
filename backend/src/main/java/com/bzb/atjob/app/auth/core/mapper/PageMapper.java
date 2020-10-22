@@ -1,8 +1,6 @@
 package com.bzb.atjob.app.auth.core.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.bzb.atjob.app.auth.core.entity.Page;
+import com.bzb.atjob.app.auth.core.model.Page;
 
-public interface PageMapper extends BaseMapper<Page> {
-
-}
+public interface PageMapper extends BaseMapper<Page> {}
