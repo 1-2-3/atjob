@@ -37,9 +37,11 @@ public class Role {
   @ApiModelProperty(value = "创建时间", required = false)
   private Date createTime;
 
+  @TableField(fill = FieldFill.INSERT)
   @ApiModelProperty(value = "创建人Id@AUTH_USER", required = false)
   private String createUserId;
 
+  @TableField(fill = FieldFill.UPDATE)
   @ApiModelProperty(value = "修改人id@AUTH_USER", required = false)
   private String modifyUserId;
 

@@ -27,7 +27,7 @@ public class AuthApplicationService {
     boolean suc = user != null && !user.getIsStop() && user.verifyPwd(plainPwd);
 
     if (suc) {
-      return JwtUtil.sign(loginName);
+      return JwtUtil.sign(loginName, user.getUserId());
     } else {
       return null;
     }

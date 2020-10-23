@@ -64,18 +64,36 @@ public class JwtUtil {
   }
 
   /**
+   * 从 token中获取用户Id.
+   *
+   * @return token中包含的用户Id
+   */
+  public static String getUserid(String token) {
+    try {
+      DecodedJWT jwt = JWT.decode(token);
+      return jwt.getClaim("userid").asString();
+    } catch (JWTDecodeException e) {
+      return null;
+    }
+  }
+
+  /**
    * 生成 token.
    *
    * @param username 用户名
    * @param secret 用户的密码
    * @return token
    */
-  public static String sign(String username, String secret) {
+  public static String sign(String username, String userId, String secret) {
     try {
       username = StringUtils.lowerCase(username);
       Date date = new Date(System.currentTimeMillis() + EXPIRE_TIME);
       Algorithm algorithm = Algorithm.HMAC256(secret);
-      return JWT.create().withClaim("username", username).withExpiresAt(date).sign(algorithm);
+      return JWT.create()
+          .withClaim("username", username)
+          .withClaim("userid", userId)
+          .withExpiresAt(date)
+          .sign(algorithm);
     } catch (Exception e) {
       return null;
     }
@@ -87,7 +105,7 @@ public class JwtUtil {
    * @param username 用户名
    * @return token
    */
-  public static String sign(String username) {
-    return sign(username, DEFAULT_SECRET);
+  public static String sign(String username, String userId) {
+    return sign(username, userId, DEFAULT_SECRET);
   }
 }
