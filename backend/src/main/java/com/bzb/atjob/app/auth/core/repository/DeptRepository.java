@@ -2,7 +2,7 @@ package com.bzb.atjob.app.auth.core.repository;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.bzb.atjob.app.auth.core.mapper.DeptMapper;
+import com.bzb.atjob.app.auth.adaptor.mapper.DeptMapper;
 import com.bzb.atjob.app.auth.core.model.Dept;
 import com.bzb.atjob.common.util.MybatisUtil;
 import com.bzb.atjob.common.vo.PaggingResult;
