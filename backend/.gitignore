@@ -4,6 +4,7 @@ target/
 !.mvn/settings.xml
 !**/src/main/**
 !**/src/test/**
+.gradle/
 
 ### STS ###
 .apt_generated
