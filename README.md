@@ -36,7 +36,23 @@
 
 2. Clone 本项目并在项目根目录下执行 `docker-compose up -d`
    
-   第一次执行会下载包括 Oracle 数据库等 Docker 镜像，如果你在第一步正确配置了镜像源，应该不会耗费太多时间。启动完成后即可访问如下地址：
+   第一次执行会下载包括 Oracle 数据库等 Docker 镜像，如果你在第一步正确配置了镜像源，应该不会耗费太多时间。在下载镜像之后还要进行数据库初始化、下载前后端依赖包、编译等任务，会耗费一些时间。如果想查看详细的运行日志，可使用如下命令：
+   
+   - 数据库：`docker-compose logs -f db`
+   
+   - 数据库创建用户：`docker-compose logs -f flyway-init`
+   
+   - 数据库表结构和初始数据：`docker-compose logs -f flyway`
+   
+   - 后端服务：`docker-compose logs -f backend`
+   
+   - 前端：`docker-compose logs -f frontend`
+     
+     `-f` 参数意为 `follow` ，会使命令处于阻塞状态实时刷新最新日志输出，你可以随时按 `ctrl+c` 退出命令而不会终止容器的运行。
+   
+   
+   
+   启动完成后即可访问如下地址：
    
    - 前端： http://localhost:9900
    

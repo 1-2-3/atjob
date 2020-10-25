@@ -52,7 +52,7 @@ services:
         max-size: "2k"
   flyway-init:
     image: flyway/flyway:6.4.1
-    command: -url=jdbc:oracle:thin:@//db/ORCLPDB1.localdomain -user="sys as sysdba" -password=Oradoc_db1 -connectRetries=120 repair baseline migrate
+    command: -url=jdbc:oracle:thin:@//db/ORCLPDB1.localdomain -user="sys as sysdba" -password=Oradoc_db1 -connectRetries=1200 repair baseline migrate
     volumes:
       - ./db/flyway/init_sql:/flyway/sql
     depends_on:
@@ -61,7 +61,7 @@ services:
       - default
   flyway:
     image: flyway/flyway:6.4.1
-    command: -url=jdbc:oracle:thin:@//db/ORCLPDB1.localdomain -user=atjob -password=atjob -connectRetries=120 repair migrate
+    command: -url=jdbc:oracle:thin:@//db/ORCLPDB1.localdomain -user=atjob -password=atjob -connectRetries=1200 repair migrate
     volumes:
       - ./db/flyway/sql:/flyway/sql
     depends_on:
