@@ -8,7 +8,7 @@ import org.apache.shiro.authz.UnauthorizedException;
 import org.apache.shiro.web.filter.authc.BasicHttpAuthenticationFilter;
 import org.apache.shiro.web.util.WebUtils;
 import org.springframework.http.HttpStatus;
-import org.springframework.util.AntPathMatcher; 
+import org.springframework.util.AntPathMatcher;
 
 public class JwtFilter extends BasicHttpAuthenticationFilter {
 

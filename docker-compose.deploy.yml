@@ -4,8 +4,8 @@ services:
     build:
       context: ./frontend
       dockerfile: Dockerfile
-    # ports:
-    #   - "8090:80"
+    ports:
+      - "9900:80"
     networks:
       default:
         aliases:

@@ -57,5 +57,3 @@ sqlplus atjob/atjob@ORCLPDB1
 密码：atjob
 数据库：127.0.0.1/ORCLPDB1.localdomain
 ```
-
-以上

@@ -38,5 +38,3 @@ vscode 比较麻烦，因为插件市场中的2款谷歌代码格式化插件都
    ```
 
 3. 在 vscode 的`设置`中搜索 `java format`，将 `Java > Format: Enabled` 和 `Java > Format > OnType: Enabled` 选项禁用。
-
-
