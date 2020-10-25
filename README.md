@@ -32,7 +32,7 @@
 
 ## 起步
 
-1. [在 Win10 下安装并配置 Docker](doc/docker/在 Win10 下安装并配置 Docker.md) 
+1. [在 Win10 下安装并配置 Docker](doc/docker/在Win10下安装并配置Docker.md) 
 
 2. Clone 本项目并在项目根目录下执行 `docker-compose up -d`
    
