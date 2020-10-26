@@ -1,12 +1,12 @@
-package com.bzb.atjob.app.auth.core.repository;
+package com.bzb.atjob.app.auth.core.role.repository;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.bzb.atjob.app.auth.adaptor.mapper.PageOwnedByRoleMapper;
 import com.bzb.atjob.app.auth.adaptor.mapper.RoleMapper;
-import com.bzb.atjob.app.auth.core.model.PageOwnedByRole;
-import com.bzb.atjob.app.auth.core.model.Role;
+import com.bzb.atjob.app.auth.core.role.model.PageOwnedByRole;
+import com.bzb.atjob.app.auth.core.role.model.Role;
 import com.bzb.atjob.common.util.MybatisUtil;
 import com.bzb.atjob.common.vo.PaggingResult;
 import java.util.List;

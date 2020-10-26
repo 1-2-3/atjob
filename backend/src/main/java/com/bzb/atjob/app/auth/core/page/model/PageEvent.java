@@ -1,4 +1,4 @@
-package com.bzb.atjob.app.auth.core.model;
+package com.bzb.atjob.app.auth.core.page.model;
 
 import com.bzb.atjob.common.events.DomainEvent;
 import com.bzb.atjob.common.util.MybatisUtil;

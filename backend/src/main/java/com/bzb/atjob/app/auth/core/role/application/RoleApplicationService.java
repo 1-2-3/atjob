@@ -1,8 +1,8 @@
-package com.bzb.atjob.app.auth.core.application;
+package com.bzb.atjob.app.auth.core.role.application;
 
-import com.bzb.atjob.app.auth.core.model.PageEvent.PageDeleted;
-import com.bzb.atjob.app.auth.core.model.Role;
-import com.bzb.atjob.app.auth.core.repository.RoleRepository;
+import com.bzb.atjob.app.auth.core.page.model.PageEvent.PageDeleted;
+import com.bzb.atjob.app.auth.core.role.model.Role;
+import com.bzb.atjob.app.auth.core.role.repository.RoleRepository;
 import com.bzb.atjob.common.vo.PaggingResult;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.event.EventListener;

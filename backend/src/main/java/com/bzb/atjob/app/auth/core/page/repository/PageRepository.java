@@ -1,9 +1,9 @@
-package com.bzb.atjob.app.auth.core.repository;
+package com.bzb.atjob.app.auth.core.page.repository;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.bzb.atjob.app.auth.adaptor.mapper.PageMapper;
-import com.bzb.atjob.app.auth.core.model.Page;
-import com.bzb.atjob.app.auth.core.model.PageEvent.PageDeleted;
+import com.bzb.atjob.app.auth.core.page.model.Page;
+import com.bzb.atjob.app.auth.core.page.model.PageEvent.PageDeleted;
 import com.bzb.atjob.common.events.DomainEvents;
 import com.bzb.atjob.common.util.MybatisUtil;
 import com.bzb.atjob.common.vo.PaggingResult;

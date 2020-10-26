@@ -1,7 +1,7 @@
-package com.bzb.atjob.app.auth.core.application;
+package com.bzb.atjob.app.auth.core.dept.application;
 
-import com.bzb.atjob.app.auth.core.model.Dept;
-import com.bzb.atjob.app.auth.core.repository.DeptRepository;
+import com.bzb.atjob.app.auth.core.dept.model.Dept;
+import com.bzb.atjob.app.auth.core.dept.repository.DeptRepository;
 import com.bzb.atjob.common.vo.PaggingResult;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

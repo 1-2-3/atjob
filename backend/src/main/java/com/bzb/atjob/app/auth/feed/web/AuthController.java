@@ -1,6 +1,6 @@
 package com.bzb.atjob.app.auth.feed.web;
 
-import com.bzb.atjob.app.auth.core.application.AuthApplicationService;
+import com.bzb.atjob.app.auth.core.user.application.AuthApplicationService;
 import com.bzb.atjob.common.basetypes.BaseController;
 import com.bzb.atjob.common.vo.ApiResult;
 import io.swagger.annotations.Api;

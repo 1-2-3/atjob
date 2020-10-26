@@ -1,7 +1,7 @@
 package com.bzb.atjob.app.auth.feed.web;
 
-import com.bzb.atjob.app.auth.core.application.PageApplicationService;
-import com.bzb.atjob.app.auth.core.model.Page;
+import com.bzb.atjob.app.auth.core.page.application.PageApplicationService;
+import com.bzb.atjob.app.auth.core.page.model.Page;
 import com.bzb.atjob.common.basetypes.BaseController;
 import com.bzb.atjob.common.vo.ApiResult;
 import com.bzb.atjob.common.vo.PaggingResult;

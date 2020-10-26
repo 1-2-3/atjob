@@ -1,7 +1,7 @@
-package com.bzb.atjob.app.auth.core.application;
+package com.bzb.atjob.app.auth.core.user.application;
 
-import com.bzb.atjob.app.auth.core.model.User;
-import com.bzb.atjob.app.auth.core.repository.UserRepository;
+import com.bzb.atjob.app.auth.core.user.model.User;
+import com.bzb.atjob.app.auth.core.user.repository.UserRepository;
 import com.bzb.atjob.common.auth.JwtUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

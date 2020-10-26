@@ -1,4 +1,4 @@
-package com.bzb.atjob.app.auth.core.model;
+package com.bzb.atjob.app.auth.core.dept.model;
 
 import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.annotation.IdType;
@@ -10,41 +10,34 @@ import io.swagger.annotations.ApiModelProperty;
 import java.util.Date;
 import lombok.Data;
 
-@ApiModel(description = "页面")
+@ApiModel(description = "部门")
 @Data
-@TableName(value = "AUTH_PAGE")
-public class Page {
-
-  @ApiModelProperty(value = "PAGE_ID", required = false)
+@TableName(value = "AUTH_DEPT")
+public class Dept {
+  @ApiModelProperty(value = "DEPT_ID", required = false)
   @TableId(type = IdType.ASSIGN_ID)
-  private String pageId;
+  private String deptId;
 
-  @ApiModelProperty(value = "页面名称", required = false)
+  @ApiModelProperty(value = "部门名称", required = false)
   private String name;
 
-  @ApiModelProperty(value = "页面编码", required = false)
+  @ApiModelProperty(value = "部门编码", required = false)
   private String code;
-
-  @ApiModelProperty(value = "访问路径", required = false)
-  private String path;
 
   @ApiModelProperty(value = "父节ID", required = false)
   private String parent;
 
-  @ApiModelProperty(value = "是否叶", required = false)
-  private Boolean isLeaf;
-
-  @ApiModelProperty(value = "ICON", required = false)
-  private String icon;
-
-  @ApiModelProperty(value = "是否隐藏", required = false)
-  private Boolean isHide;
-
-  @ApiModelProperty(value = "是否禁用", required = false)
-  private Boolean isStop;
+  @ApiModelProperty(value = "录入码", required = false)
+  private String inputCode;
 
   @ApiModelProperty(value = "排序", required = false)
   private Integer indexField;
+
+  @ApiModelProperty(value = "描述", required = false)
+  private String description;
+
+  @ApiModelProperty(value = "是否停用", required = false)
+  private Boolean isStop;
 
   @TableField(fill = FieldFill.INSERT)
   @ApiModelProperty(value = "创建时间", required = false)

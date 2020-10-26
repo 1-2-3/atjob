@@ -1,4 +1,4 @@
-package com.bzb.atjob.app.auth.core.model;
+package com.bzb.atjob.app.auth.core.role.model;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
