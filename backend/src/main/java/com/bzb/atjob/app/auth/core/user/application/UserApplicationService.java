@@ -1,8 +1,8 @@
 package com.bzb.atjob.app.auth.core.user.application;
 
-import com.bzb.atjob.app.auth.core.page.repository.PageRepository;
+import com.bzb.atjob.app.auth.adaptor.finder.FindAllAvailablePage;
+import com.bzb.atjob.app.auth.adaptor.finder.FindRoleById;
 import com.bzb.atjob.app.auth.core.role.model.Role;
-import com.bzb.atjob.app.auth.core.role.repository.RoleRepository;
 import com.bzb.atjob.app.auth.core.user.model.User;
 import com.bzb.atjob.app.auth.core.user.repository.UserRepository;
 import com.bzb.atjob.common.vo.PaggingResult;
@@ -21,8 +21,8 @@ import org.springframework.transaction.annotation.Transactional;
 @RequiredArgsConstructor
 public class UserApplicationService {
   private final UserRepository userRepository;
-  private final RoleRepository roleRepository;
-  private final PageRepository pageRepository;
+  private final FindRoleById findRoleById;
+  private final FindAllAvailablePage findAllAvailablePage;
 
   /**
    * 获取用户列表.
@@ -69,11 +69,12 @@ public class UserApplicationService {
     Set<String> pageIdsOwned = new HashSet<String>();
 
     for (String roleId : roleIdList) {
-      Role role = roleRepository.byId(roleId);
+      Role role = findRoleById.findRoleById(roleId);
       pageIdsOwned.addAll(role.getPageIdListOwned());
     }
 
-    List<com.bzb.atjob.app.auth.core.page.model.Page> allPages = pageRepository.getAvailableAll();
+    List<com.bzb.atjob.app.auth.core.page.model.Page> allPages =
+        findAllAvailablePage.findAllAvailablePage();
 
     // 由于 pageIdsOwned 只包含叶子节点，还要附加上父节点
     Set<String> ownedNodePageIds =

@@ -5,11 +5,13 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.bzb.atjob.common.annotation.AggregateRoot;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.Date;
 import lombok.Data;
 
+@AggregateRoot
 @ApiModel(description = "部门")
 @Data
 @TableName(value = "AUTH_DEPT")

@@ -1,6 +1,7 @@
 package com.bzb.atjob.app.auth.core.page.repository;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.bzb.atjob.app.auth.adaptor.finder.FindAllAvailablePage;
 import com.bzb.atjob.app.auth.adaptor.mapper.PageMapper;
 import com.bzb.atjob.app.auth.core.page.model.Page;
 import com.bzb.atjob.app.auth.core.page.model.PageEvent.PageDeleted;
@@ -16,7 +17,7 @@ import org.springframework.stereotype.Service;
 @Service
 @RequiredArgsConstructor
 @SuppressWarnings("unchecked")
-public class PageRepository {
+public class PageRepository implements FindAllAvailablePage {
 
   private final PageMapper pageMapper;
   private final DomainEvents domainEvents;
@@ -128,5 +129,10 @@ public class PageRepository {
   private boolean hasChildPage(String pageId) {
     return pageMapper.selectCount(new QueryWrapper<Page>().lambda().eq(Page::getParent, pageId))
         > 0;
+  }
+
+  @Override
+  public List<Page> findAllAvailablePage() {
+    return getAvailableAll();
   }
 }

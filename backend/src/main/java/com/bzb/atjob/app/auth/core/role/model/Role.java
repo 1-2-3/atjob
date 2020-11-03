@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.bzb.atjob.common.annotation.AggregateRoot;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -13,6 +14,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 import lombok.Data;
 
+@AggregateRoot
 @ApiModel(description = "系统角色")
 @Data
 @TableName(value = "AUTH_ROLE")

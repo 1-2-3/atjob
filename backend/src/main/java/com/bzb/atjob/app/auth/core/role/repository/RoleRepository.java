@@ -3,6 +3,7 @@ package com.bzb.atjob.app.auth.core.role.repository;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.bzb.atjob.app.auth.adaptor.finder.FindRoleById;
 import com.bzb.atjob.app.auth.adaptor.mapper.PageOwnedByRoleMapper;
 import com.bzb.atjob.app.auth.adaptor.mapper.RoleMapper;
 import com.bzb.atjob.app.auth.core.role.model.PageOwnedByRole;
@@ -11,17 +12,17 @@ import com.bzb.atjob.common.util.MybatisUtil;
 import com.bzb.atjob.common.vo.PaggingResult;
 import java.util.List;
 import javax.validation.ValidationException;
+import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-// @RequiredArgsConstructor
-public class RoleRepository {
+@RequiredArgsConstructor
+public class RoleRepository implements FindRoleById {
 
-  @Autowired private RoleMapper roleMapper;
+  private final RoleMapper roleMapper;
 
-  @Autowired private PageOwnedByRoleMapper pageOwnedByRoleMapper;
+  private final PageOwnedByRoleMapper pageOwnedByRoleMapper;
 
   /**
    * 获取匹配主键的角色.
@@ -121,5 +122,10 @@ public class RoleRepository {
               new QueryWrapper<Role>().lambda().ne(Role::getRoleId, roldId).eq(Role::getCode, code))
           > 0;
     }
+  }
+
+  @Override
+  public Role findRoleById(String roleId) {
+    return byId(roleId);
   }
 }
