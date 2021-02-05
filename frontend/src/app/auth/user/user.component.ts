@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { NzModalService, NzMessageService } from 'ng-zorro-antd';
+import { NzModalService } from 'ng-zorro-antd/modal';
+import { NzMessageService } from 'ng-zorro-antd/message';
 import { UserService } from './user.service';
 import { STColumnBadge, STColumn, STData } from '@delon/abc';
 import { UserEditComponent } from './edit/user-edit.component';

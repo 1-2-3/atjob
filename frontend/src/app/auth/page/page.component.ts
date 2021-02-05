@@ -1,4 +1,6 @@
-import { NzModalService, NzMessageService, NzTreeComponent } from 'ng-zorro-antd';
+import { NzModalService } from 'ng-zorro-antd/modal';
+import { NzMessageService } from 'ng-zorro-antd/message';
+import { NzTreeComponent } from 'ng-zorro-antd/tree';
 import { Component, ViewChild, OnInit } from '@angular/core';
 import { map } from 'rxjs/operators';
 import { STColumn, STRes, STData } from '@delon/abc';

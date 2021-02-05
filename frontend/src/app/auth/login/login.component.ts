@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { NzMessageService } from 'ng-zorro-antd';
+import { NzMessageService } from 'ng-zorro-antd/message';
 import { AuthService } from 'src/app/shared/auth/auth.service';
 import { ApiResult } from 'src/app/shared/types/api-result';
 import { UserService } from '../user/user.service';

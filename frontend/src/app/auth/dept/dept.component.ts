@@ -1,4 +1,6 @@
-import { NzModalService, NzMessageService, NzTreeComponent } from 'ng-zorro-antd';
+import { NzModalService } from 'ng-zorro-antd/modal';
+import { NzMessageService } from 'ng-zorro-antd/message';
+import { NzTreeComponent } from 'ng-zorro-antd/tree';
 import { DeptEditComponent } from './edit/dept-edit.component';
 import { Component, ViewChild, OnInit } from '@angular/core';
 import { DeptService } from './dept.service';

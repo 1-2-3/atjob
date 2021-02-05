@@ -1,5 +1,6 @@
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { NzMessageService, NzModalRef } from 'ng-zorro-antd';
+import { NzMessageService } from 'ng-zorro-antd/message';
+import { NzModalRef } from 'ng-zorro-antd/modal';
 import { Component, OnInit, ViewChild, Input } from '@angular/core';
 import { map, tap } from 'rxjs/operators';
 import { zip, of } from 'rxjs';
