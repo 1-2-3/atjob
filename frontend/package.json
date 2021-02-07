@@ -13,6 +13,7 @@
   "private": true,
   "dependencies": {
     "@angular/animations": "~11.1.2",
+    "@angular/cdk": "^11.1.2",
     "@angular/common": "~11.1.2",
     "@angular/compiler": "~11.1.2",
     "@angular/core": "~11.1.2",
@@ -20,13 +21,13 @@
     "@angular/platform-browser": "~11.1.2",
     "@angular/platform-browser-dynamic": "~11.1.2",
     "@angular/router": "~11.1.2",
-    "@delon/abc": "^9.2.3",
-    "@delon/theme": "^9.2.4",
+    "@delon/abc": "^11.3.1",
+    "@delon/theme": "^11.3.1",
     "ng-zorro-antd": "^11.1.0",
     "rxjs": "~6.5.4",
     "tslib": "^2.0.0",
     "zone.js": "~0.10.2",
-    "zorro-sharper": "^2.0.0"
+    "zorro-sharper": "^3.0.0"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "~0.1101.3",

@@ -3,7 +3,7 @@ import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzTreeComponent } from 'ng-zorro-antd/tree';
 import { Component, ViewChild, OnInit } from '@angular/core';
 import { map } from 'rxjs/operators';
-import { STColumn, STRes, STData } from '@delon/abc';
+import { STColumn, STRes, STData } from '@delon/abc/st';
 import { ApiResult } from 'src/app/shared/types/api-result';
 import { PageService } from './page.service';
 import { PageEditComponent } from './edit/page-edit.component';

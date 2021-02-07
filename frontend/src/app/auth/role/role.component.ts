@@ -3,7 +3,7 @@ import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzTreeComponent } from 'ng-zorro-antd/tree';
 import { Component, ViewChild, OnInit } from '@angular/core';
 import { map } from 'rxjs/operators';
-import { STColumn, STRes, STData, STColumnBadge } from '@delon/abc';
+import { STColumn, STRes, STData, STColumnBadge } from '@delon/abc/st';
 import { ApiResult } from 'src/app/shared/types/api-result';
 import { RoleService } from './role.service';
 import { RoleEditComponent } from './edit/role-edit.component';

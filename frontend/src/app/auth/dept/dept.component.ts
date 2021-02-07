@@ -5,7 +5,7 @@ import { DeptEditComponent } from './edit/dept-edit.component';
 import { Component, ViewChild, OnInit } from '@angular/core';
 import { DeptService } from './dept.service';
 import { map } from 'rxjs/operators';
-import { STColumn, STRes, STData } from '@delon/abc';
+import { STColumn, STRes, STData } from '@delon/abc/st';
 import { ApiResult } from 'src/app/shared/types/api-result';
 
 @Component({

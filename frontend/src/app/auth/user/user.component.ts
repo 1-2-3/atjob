@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { NzModalService } from 'ng-zorro-antd/modal';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { UserService } from './user.service';
-import { STColumnBadge, STColumn, STData } from '@delon/abc';
+import { STColumnBadge, STColumn, STData } from '@delon/abc/st';
 import { UserEditComponent } from './edit/user-edit.component';
 import { ApiResult } from 'src/app/shared/types/api-result';
 
