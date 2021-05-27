@@ -68,7 +68,15 @@ services:
       - db
     networks:
       - default
-
+  migrations:
+    image: mybatis/migrations
+    command: info
+    volumes:
+      - ./db/mybatis-migrations:/migration
+    depends_on:
+      - db
+    networks:
+      - default
   rabbitmq:
     image: rabbitmq:3-management
     ports:

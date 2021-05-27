@@ -5,6 +5,10 @@
 - 从 `https://github.com/mybatis/migrations/releases` 下载最新版并解压缩。
 - 假设解压缩后的文件夹为 `mybatis-migrations-3.3.9`。将 `mybatis-migrations-3.3.9` 所在完整路径添加到环境变量 `MIGRATIONS_HOME`，将 `%MIGRATIONS_HOME%\bin` 添加到环境变量 `PATH` 中。
 
+### 使用 Docker 镜像
+
+Docker 配置可参考 `docker-compose.deploy.yml` 中的 `migrations` 节点。`command` 中直接写命令参数即可，例如 `command: info` 表示在执行 `docker-compose up migrations` 时会在容器中执行 `migrate info`
+
 ## 使用
 
 ### 初始化
