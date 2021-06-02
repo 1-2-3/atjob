@@ -62,10 +62,6 @@ then
   PGA_MEM=$(($MEMORY * 384))M
   echo "*.sga_target=$SGA_MEM" >> initORCLCDB.ora
   echo "*.pga_aggregate_target=$PGA_MEM" >> initORCLCDB.ora
-  # set nls by 1-2-3
-  # echo "set nls by 1-2-3"
-  # echo "*.nls_language='SIMPLIFIED CHINESE'" >> initORCLCDB.ora
-  # echo "*.nls_territory='CHINA'" >> initORCLCDB.ora
 
   # create the diag directory to avoid errors with the below mv command
   mkdir -p /u01/app/oracle/diag/rdbms/orclcdb/ORCLCDB
@@ -108,27 +104,10 @@ EOF
   # db setup
   # enable archivelog + change global name + create spfile
       NEW_ORA=/u01/app/oracle/product/12.2.0/dbhome_1/dbs/init$DB_SID.ora
-      echo "db setup #1"
       sqlplus / as sysdba 2>&1 <<EOF
       create spfile from pfile='$NEW_ORA';
       startup mount;
       alter database open resetlogs;
-      alter database rename global_name to $DB_SID.$DB_DOMAIN;
-      show parameter spfile;
-      show parameter encrypt_new_tablespaces;
-      alter user sys identified by "$DB_PASSWD";
-      alter user system identified by "$DB_PASSWD";
-      exit;
-EOF
-
-  else
-  # db setup
-  # enable archivelog + change global name + create spfile
-      NEW_ORA=/u01/app/oracle/product/12.2.0/dbhome_1/dbs/init$DB_SID.ora
-      echo "db setup #2"
-      sqlplus / as sysdba 2>&1 <<EOF
-      create spfile from pfile='$NEW_ORA';
-      startup;
       alter database rename global_name to $DB_SID.$DB_DOMAIN;
       show parameter spfile;
       show parameter encrypt_new_tablespaces;
@@ -142,6 +121,21 @@ EOF
       alter user system identified by "$DB_PASSWD";
       exit;
 EOF
+
+  else
+  # db setup
+  # enable archivelog + change global name + create spfile
+      NEW_ORA=/u01/app/oracle/product/12.2.0/dbhome_1/dbs/init$DB_SID.ora
+      sqlplus / as sysdba 2>&1 <<EOF
+      create spfile from pfile='$NEW_ORA';
+      startup;
+      alter database rename global_name to $DB_SID.$DB_DOMAIN;
+      show parameter spfile;
+      show parameter encrypt_new_tablespaces;
+      alter user sys identified by "$DB_PASSWD";
+      alter user system identified by "$DB_PASSWD";
+      exit;
+EOF
   fi
 
   # create orapw
@@ -149,7 +143,7 @@ EOF
   echo "$DB_PASSWD" | orapwd file=/u01/app/oracle/product/12.2.0/dbhome_1/dbs/orapw$DB_SID
 
   # create pdb
-  echo "create pdb: $DB_PDB"
+  echo "create pdb : $DB_PDB"
   sqlplus / as sysdba 2>&1 <<EOF
     create pluggable database $DB_PDB ADMIN USER sys1 identified by "$DB_PASSWD"
     default tablespace users
@@ -158,6 +152,16 @@ EOF
       file_name_convert=('/u02/app/oracle/oradata/ORCL/pdbseed','/u02/app/oracle/oradata/ORCLCDB/orclpdb1');
     alter pluggable database $DB_PDB open;
     alter pluggable database all save state;
+    exit;
+EOF
+  
+  # create atjob user set by 1-2-3
+  echo "create atjob user :"
+  sqlplus / as sysdba 2>&1 <<EOF
+    alter session set container=ORCLPDB1;
+    create user atjob identified by atjob default tablespace USERS temporary tablespace TEMP;
+    grant dba to atjob;
+    grant unlimited tablespace to atjob;
     exit;
 EOF
 

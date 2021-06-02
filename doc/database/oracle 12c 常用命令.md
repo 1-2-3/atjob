@@ -36,9 +36,9 @@ show con_name;
 
 ```plsql
 create user atjob identified by atjob default tablespace USERS temporary tablespace TEMP;
--- Grant/Revoke role privileges 
+-- Grant/Revoke role privileges
 grant dba to atjob;
--- Grant/Revoke system privileges 
+-- Grant/Revoke system privileges
 grant unlimited tablespace to atjob;
 ```
 
@@ -55,5 +55,13 @@ sqlplus atjob/atjob@ORCLPDB1
 ```
 用户名: atjob
 密码：atjob
-数据库：127.0.0.1/ORCLPDB1.localdomain
+数据库：127.0.0.1:9009/ORCLPDB1.localdomain
+```
+
+## 提示 sys 用户密码过期时修改密码
+
+```bash
+docker exec -it atjob_db_1 bash
+sqlplus / as sysdba
+alter user sys identified by Oradoc_db1;
 ```

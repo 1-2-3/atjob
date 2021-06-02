@@ -34,7 +34,6 @@ services:
       options:
         max-size: "2k"
   db:
-    # image: store/oracle/database-enterprise:12.2.0.1-slim
     build:
       context: ./db
       dockerfile: Dockerfile
@@ -50,31 +49,48 @@ services:
       driver: "json-file"
       options:
         max-size: "2k"
-  flyway-init:
-    image: flyway/flyway:6.4.1
-    command: -url=jdbc:oracle:thin:@//db/ORCLPDB1.localdomain -user="sys as sysdba" -password=Oradoc_db1 -connectRetries=1200 repair baseline migrate
-    volumes:
-      - ./db/flyway/init_sql:/flyway/sql
-    depends_on:
-      - db
-    networks:
-      - default
-  flyway:
-    image: flyway/flyway:6.4.1
-    command: -url=jdbc:oracle:thin:@//db/ORCLPDB1.localdomain -user=atjob -password=atjob -connectRetries=1200 repair migrate
-    volumes:
-      - ./db/flyway/sql:/flyway/sql
-    depends_on:
-      - db
-    networks:
-      - default
+    healthcheck:
+      test:
+        [
+          "CMD",
+          "bash",
+          "-c",
+          'echo "select ''connect-ready'' from dual;" | /u01/app/oracle/product/12.2.0/dbhome_1/bin/sqlplus -S system/Oradoc_db1@localhost/ORCLPDB1.localdomain | grep -o connect-ready | grep -c connect-ready',
+        ]
+      interval: 10s
+      timeout: 10s
+      retries: 600
+  # Due to the limitations of Flyway Community Edition, it was discarded
+  # flyway-init:
+  #   image: flyway/flyway:6.4.1
+  #   command: -url=jdbc:oracle:thin:@//db/ORCLPDB1.localdomain -user="sys as sysdba" -password=Oradoc_db1 -connectRetries=1200 repair baseline migrate
+  #   volumes:
+  #     - ./db/flyway/init_sql:/flyway/sql
+  #   depends_on:
+  #     - db
+  #   networks:
+  #     - default
+  # flyway:
+  #   image: flyway/flyway:6.4.1
+  #   command: -url=jdbc:oracle:thin:@//db/ORCLPDB1.localdomain -user=atjob -password=atjob -connectRetries=1200 repair migrate
+  #   volumes:
+  #     - ./db/flyway/sql:/flyway/sql
+  #   depends_on:
+  #     - db
+  #   networks:
+  #     - default
+
   migrations:
-    image: mybatis/migrations
-    command: info
+    build:
+      context: ./db/mybatis-migrations
+      dockerfile: Dockerfile
+    #command: /bin/sh -c "/migration/utils/wait-for-it.sh db:1521 --timeout=1200 --strict -- sleep 10 && echo \"db is up\""
+    command: up
     volumes:
       - ./db/mybatis-migrations:/migration
     depends_on:
-      - db
+      db:
+        condition: service_healthy
     networks:
       - default
   rabbitmq:
