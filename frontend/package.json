@@ -21,7 +21,7 @@
     "@angular/platform-browser": "~11.1.2",
     "@angular/platform-browser-dynamic": "~11.1.2",
     "@angular/router": "~11.1.2",
-    "@delon/abc": "^14.0.0",
+    "@delon/abc": "^17.3.1",
     "@delon/theme": "^11.3.1",
     "ng-zorro-antd": "^11.1.0",
     "rxjs": "~6.5.4",
